@@ -86,7 +86,7 @@ class BootstrapV4Renderer extends Nette\Forms\Rendering\DefaultFormRenderer
 	public function renderPairMulti(array $controls): string {
 		foreach ($controls as $control) {
 			if ($control instanceof Nette\Forms\Controls\Button) {
-				if ($control->getControlPrototype()->getClass() === NULL || (is_array($control->getControlPrototype()->getClass()) && !Nette\Utils\Strings::contains(implode(" ", $control->getControlPrototype()->getClass()), "btn btn-outline-"))) {
+				if ($control->getControlPrototype()->getClass() === NULL || (is_array($control->getControlPrototype()->getClass()) && !Nette\Utils\Strings::contains(implode(" ", array_keys($control->getControlPrototype()->getClass())), "btn btn-"))) {
 					$control->getControlPrototype()->addClass((empty($primary) ? "btn btn-outline-primary" : "btn btn-outline-secondary"));
 				}
 				$primary = TRUE;
