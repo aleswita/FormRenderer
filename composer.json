@@ -1,0 +1,28 @@
+{
+	"name": "aleswita/formrenderer",
+	"description": "Form Renderer for Nette Framework and Bootstrap v4.",
+	"keywords": ["nette", "form renderer", "bootsrap"],
+	"license": ["MIT"],
+	"authors": [
+		{
+			"name": "Aleš Wita",
+			"email": "aleswita+github@gmail.com"
+		}
+	],
+	"require": {
+		"php": "~7.1",
+		"nette/application": "~2.4.0 || ~3.0.0",
+		"nette/forms": "~2.4.0 || ~3.0.0",
+		"nette/utils": "~2.4.0 || ~3.0.0",
+		"latte/latte": "~2.4.0 || ~3.0.0"
+	},
+	"require-dev": {
+		"nette/robot-loader": "~2.4.0 || ~3.0.0",
+		"nette/bootstrap": "~2.4.0 || ~3.0.0",
+		"tracy/tracy": "~2.4.0 || ~3.0.0",
+		"nette/tester": "~1.7.0"
+	},
+	"autoload": {
+		"classmap": ["src/"]
+	}
+}

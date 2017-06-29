@@ -1,0 +1,14 @@
+application:
+	mapping:
+		*: AlesWita\FormRenderer\Tests\App\Presenters\*Presenter
+
+services:
+	fake.translator:
+		class: AlesWita\FormRenderer\Tests\App\Service\FakeTranslator
+
+	base.presenter:
+		class: AlesWita\FormRenderer\Tests\App\Presenters\BasePresenter
+
+	routing.router: AlesWita\FormRenderer\Tests\App\Router\Router::createRouter
+
+	- AlesWita\FormRenderer\Factory(@Nette\Localization\ITranslator)
