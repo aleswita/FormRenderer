@@ -28,6 +28,10 @@ final class BasePresenter extends Nette\Application\UI\Presenter
 	protected function createComponentForm1(): Nette\Application\UI\Form {
 		$form = $this->factory->create();
 
+		$form->addGroup("group1")
+			->setOption("label", "group1 label")
+			->setOption("description", "group1 description");
+
 		$form->addError("error1");
 
 		$form->addText("text1", "text1")

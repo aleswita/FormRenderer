@@ -42,7 +42,7 @@ final class BaseTest extends Tester\TestCase
 
 		Tester\Assert::true($response instanceof Nette\Application\Responses\TextResponse);
 		Tester\Assert::true($response->getSource() instanceof Nette\Application\UI\ITemplate);
-        Tester\Assert::true($presenter->factory->getTranslator() instanceof Nette\Localization\ITranslator);
+		Tester\Assert::true($presenter->factory->getTranslator() instanceof Nette\Localization\ITranslator);
 
 
 		$source = (string) $response->getSource();
@@ -76,6 +76,26 @@ final class BaseTest extends Tester\TestCase
 		Tester\Assert::count(1, $foo["@attributes"]);
 		Tester\Assert::same("row mb-3", $foo["@attributes"]["class"]);
 		Tester\Assert::same("error1", $foo["div"]);
+
+
+		/**
+		 * form group test
+		 */
+		$data = $dom->find("p");
+
+		Tester\Assert::count(2, $data);
+
+		$foo = (array) $data[0];
+		Tester\Assert::count(2, $foo);
+		Tester\Assert::count(1, $foo["@attributes"]);
+		Tester\Assert::same("h3 modal-header", $foo["@attributes"]["class"]);
+		Tester\Assert::same("group1 label", $foo[0]);
+
+		$foo = (array) $data[1];
+		Tester\Assert::count(2, $foo);
+		Tester\Assert::count(1, $foo["@attributes"]);
+		Tester\Assert::same("lead", $foo["@attributes"]["class"]);
+		Tester\Assert::same("group1 description", $foo[0]);
 
 
 		/**
@@ -327,7 +347,7 @@ final class BaseTest extends Tester\TestCase
 
 
 		/**
-		 * submit1 & submit2  buttons test
+		 * submit1 & submit2 buttons test
 		 */
 		$buttonsContainer = (array) $data[6];
 		$buttonsLabelContainer = (array) $buttonsContainer["div"][0];
@@ -357,7 +377,7 @@ final class BaseTest extends Tester\TestCase
 		Tester\Assert::same("submit1", $foo["@attributes"]["value"]);
 
 		Tester\Assert::same("submit2", $buttonsInputContainer["a"]);
-        Tester\Assert::false($presenter["form1"]["submit2"]->isFilled());
+		Tester\Assert::false($presenter["form1"]["submit2"]->isFilled());
 	}
 
 	/**
