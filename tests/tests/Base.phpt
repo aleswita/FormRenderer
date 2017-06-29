@@ -37,7 +37,7 @@ final class BaseTest extends Tester\TestCase
 
 		$presenter = $presenterFactory->createPresenter("Base");
 		$presenter->autoCanonicalize = FALSE;
-		$request = new Nette\Application\Request("Base", "GET", ["action" => "default"]);
+		$request = new Nette\Application\Request("Base", "GET", ["action" => "one"]);
 		$response = $presenter->run($request);
 
 		Tester\Assert::true($response instanceof Nette\Application\Responses\TextResponse);
@@ -47,19 +47,41 @@ final class BaseTest extends Tester\TestCase
 		$dom = Tester\DomQuery::fromHtml($source);
 
 
-		// form tag
+		/**
+		 * form test
+		 */
 		$data = $dom->find("form");
 
 		Tester\Assert::count(1, $data);
-		Tester\Assert::same("/", (string) $data[0]["action"]);
-		Tester\Assert::same("post", (string) $data[0]["method"]);
-		Tester\Assert::same("frm-form", (string) $data[0]["id"]);
+
+		$foo = (array) $data[0];
+		Tester\Assert::count(4, $foo["@attributes"]);
+		Tester\Assert::same("/base/one", $foo["@attributes"]["action"]);
+		Tester\Assert::same("post", $foo["@attributes"]["method"]);
+		Tester\Assert::same("multipart/form-data", $foo["@attributes"]["enctype"]);
+		Tester\Assert::same("frm-form1", $foo["@attributes"]["id"]);
 
 
-		// div tag's
+		/**
+		 * form error test
+		 */
+		$data = $dom->find('div[class="row mb-3"]');
+
+		Tester\Assert::count(1, $data);
+
+		$foo = (array) $data[0];
+		Tester\Assert::count(2, $foo);
+		Tester\Assert::count(1, $foo["@attributes"]);
+		Tester\Assert::same("row mb-3", $foo["@attributes"]["class"]);
+		Tester\Assert::same("error1", $foo["div"]);
+
+
+		/**
+		 * field's test
+		 */
 		$data = $dom->find('div[class="form-group row"]');
 
-		Tester\Assert::count(6, $data);
+		Tester\Assert::count(7, $data);
 
 
 		/**
@@ -87,16 +109,18 @@ final class BaseTest extends Tester\TestCase
 		Tester\Assert::same("col-6", $text1InputContainer["@attributes"]["class"]);
 
 		$foo = (array) $text1InputContainer["div"];
-		Tester\Assert::count(3, $foo);
+		Tester\Assert::count(4, $foo);
 		Tester\Assert::count(1, $foo["@attributes"]);
 		Tester\Assert::same("input-group", $foo["@attributes"]["class"]);
 		Tester\Assert::same("left-addon", $foo["span"]);
+
+		Tester\Assert::same("description1", $foo["small"]);
 
 		$foo = (array) $foo["input"];
 		Tester\Assert::count(4, $foo["@attributes"]);
 		Tester\Assert::same("text", $foo["@attributes"]["type"]);
 		Tester\Assert::same("text1", $foo["@attributes"]["name"]);
-		Tester\Assert::same("frm-form-text1", $foo["@attributes"]["id"]);
+		Tester\Assert::same("frm-form1-text1", $foo["@attributes"]["id"]);
 		Tester\Assert::same("form-control", $foo["@attributes"]["class"]);
 
 
@@ -134,7 +158,7 @@ final class BaseTest extends Tester\TestCase
 		Tester\Assert::count(4, $foo["@attributes"]);
 		Tester\Assert::same("text", $foo["@attributes"]["type"]);
 		Tester\Assert::same("text2", $foo["@attributes"]["name"]);
-		Tester\Assert::same("frm-form-text2", $foo["@attributes"]["id"]);
+		Tester\Assert::same("frm-form1-text2", $foo["@attributes"]["id"]);
 		Tester\Assert::same("form-control", $foo["@attributes"]["class"]);
 
 
@@ -165,7 +189,7 @@ final class BaseTest extends Tester\TestCase
 
 		Tester\Assert::count(3, $foo["@attributes"]);
 		Tester\Assert::same("select1", $foo["@attributes"]["name"]);
-		Tester\Assert::same("frm-form-select1", $foo["@attributes"]["id"]);
+		Tester\Assert::same("frm-form1-select1", $foo["@attributes"]["id"]);
 		Tester\Assert::same("form-control", $foo["@attributes"]["class"]);
 
 		Tester\Assert::count(2, $foo["option"]);
@@ -256,7 +280,7 @@ final class BaseTest extends Tester\TestCase
 		$foo = (array) $checkbox1InputContainer["label"];
 		Tester\Assert::count(2, $foo["@attributes"]);
 		Tester\Assert::same("form-check-label", $foo["@attributes"]["class"]);
-		Tester\Assert::same("frm-form-checkbox1", $foo["@attributes"]["for"]);
+		Tester\Assert::same("frm-form1-checkbox1", $foo["@attributes"]["for"]);
 
 		$foo = (array) $foo["input"];
 		Tester\Assert::count(1, $foo);
@@ -264,13 +288,45 @@ final class BaseTest extends Tester\TestCase
 		Tester\Assert::same("checkbox", $foo["@attributes"]["type"]);
 		Tester\Assert::same("checkbox1", $foo["@attributes"]["name"]);
 		Tester\Assert::same("form-check-input", $foo["@attributes"]["class"]);
-		Tester\Assert::same("frm-form-checkbox1", $foo["@attributes"]["id"]);
+		Tester\Assert::same("frm-form1-checkbox1", $foo["@attributes"]["id"]);
+
+
+		/**
+		 * upload1 field test
+		 */
+		$upload1Container = (array) $data[5];
+		$upload1LabelContainer = (array) $upload1Container["div"][0];
+		$upload1InputContainer = (array) $upload1Container["div"][1];
+
+		// container
+		Tester\Assert::count(2, $upload1Container);
+		Tester\Assert::count(1, $upload1Container["@attributes"]);
+		Tester\Assert::same("form-group row", $upload1Container["@attributes"]["class"]);
+		Tester\Assert::count(2, $upload1Container["div"]);
+
+		// label container
+		Tester\Assert::count(2, $upload1LabelContainer);
+		Tester\Assert::count(1, $upload1LabelContainer["@attributes"]);
+		Tester\Assert::same("col-3 text-right", $upload1LabelContainer["@attributes"]["class"]);
+		Tester\Assert::same("upload1", $upload1LabelContainer["label"]);
+
+		// input container
+		Tester\Assert::count(2, $upload1InputContainer);
+		Tester\Assert::count(1, $upload1InputContainer["@attributes"]);
+		Tester\Assert::same("col-6", $upload1InputContainer["@attributes"]["class"]);
+
+		$foo = (array) $upload1InputContainer["input"];
+		Tester\Assert::count(4, $foo["@attributes"]);
+		Tester\Assert::same("file", $foo["@attributes"]["type"]);
+		Tester\Assert::same("upload1", $foo["@attributes"]["name"]);
+		Tester\Assert::same("frm-form1-upload1", $foo["@attributes"]["id"]);
+		Tester\Assert::same("form-control-file", $foo["@attributes"]["class"]);
 
 
 		/**
 		 * submit1 & submit2  buttons test
 		 */
-		$buttonsContainer = (array) $data[5];
+		$buttonsContainer = (array) $data[6];
 		$buttonsLabelContainer = (array) $buttonsContainer["div"][0];
 		$buttonsInputContainer = (array) $buttonsContainer["div"][1];
 
@@ -298,6 +354,163 @@ final class BaseTest extends Tester\TestCase
 		Tester\Assert::same("submit1", $foo["@attributes"]["value"]);
 
 		Tester\Assert::same("submit2", $buttonsInputContainer["a"]);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testTwo(): void {
+		$configurator = new Nette\Configurator();
+		$configurator->setTempDirectory(TEMP_DIR);
+		$configurator->addConfig(__DIR__ . "/../app/config/config.neon");
+
+		$container = $configurator->createContainer();
+		$presenterFactory = $container->getByType("Nette\\Application\\IPresenterFactory");
+
+		$presenter = $presenterFactory->createPresenter("Base");
+		$presenter->autoCanonicalize = FALSE;
+		$request = new Nette\Application\Request("Base", "GET", ["action" => "two"]);
+		$response = $presenter->run($request);
+
+		Tester\Assert::true($response instanceof Nette\Application\Responses\TextResponse);
+		Tester\Assert::true($response->getSource() instanceof Nette\Application\UI\ITemplate);
+
+		$source = (string) $response->getSource();
+		$dom = Tester\DomQuery::fromHtml($source);
+
+
+		/**
+		 * form test
+		 */
+		$data = $dom->find("form");
+
+		Tester\Assert::count(1, $data);
+
+		$foo = (array) $data[0];
+		Tester\Assert::count(4, $foo["@attributes"]);
+		Tester\Assert::same("/base/two", $foo["@attributes"]["action"]);
+		Tester\Assert::same("post", $foo["@attributes"]["method"]);
+		Tester\Assert::same("multipart/form-data", $foo["@attributes"]["enctype"]);
+		Tester\Assert::same("frm-form2", $foo["@attributes"]["id"]);
+
+
+		/**
+		 * field's test
+		 */
+		$data = $dom->find('div[class="form-group row has-danger"]');
+
+		Tester\Assert::count(3, $data);
+
+
+		/**
+		 * text1 field test
+		 */
+		$text1Container = (array) $data[0];
+		$text1LabelContainer = (array) $text1Container["div"][0];
+		$text1InputContainer = (array) $text1Container["div"][1];
+
+		// container
+		Tester\Assert::count(2, $text1Container);
+		Tester\Assert::count(1, $text1Container["@attributes"]);
+		Tester\Assert::same("form-group row has-danger", $text1Container["@attributes"]["class"]);
+		Tester\Assert::count(2, $text1Container["div"]);
+
+		// label container
+		Tester\Assert::count(2, $text1LabelContainer);
+		Tester\Assert::count(1, $text1LabelContainer["@attributes"]);
+		Tester\Assert::same("col-3 text-right", $text1LabelContainer["@attributes"]["class"]);
+		Tester\Assert::same("text1", $text1LabelContainer["label"]);
+
+		// input container
+		Tester\Assert::count(2, $text1InputContainer);
+		Tester\Assert::count(1, $text1InputContainer["@attributes"]);
+		Tester\Assert::same("col-6", $text1InputContainer["@attributes"]["class"]);
+
+		$foo = (array) $text1InputContainer["div"];
+		Tester\Assert::count(4, $foo);
+		Tester\Assert::count(1, $foo["@attributes"]);
+		Tester\Assert::same("input-group", $foo["@attributes"]["class"]);
+		Tester\Assert::same(["left", "addon"], $foo["span"]);
+		Tester\Assert::contains("text1 error", (string) $foo["div"]);
+
+		$foo = (array) $foo["input"];
+		Tester\Assert::count(4, $foo["@attributes"]);
+		Tester\Assert::same("text", $foo["@attributes"]["type"]);
+		Tester\Assert::same("text1", $foo["@attributes"]["name"]);
+		Tester\Assert::same("frm-form2-text1", $foo["@attributes"]["id"]);
+		Tester\Assert::same("form-control-danger form-control", $foo["@attributes"]["class"]);
+
+
+		/**
+		 * text2 field test
+		 */
+		$text2Container = (array) $data[1];
+		$text2LabelContainer = (array) $text2Container["div"][0];
+		$text2InputContainer = (array) $text2Container["div"][1];
+
+		// container
+		Tester\Assert::count(2, $text2Container);
+		Tester\Assert::count(1, $text2Container["@attributes"]);
+		Tester\Assert::same("form-group row has-danger", $text2Container["@attributes"]["class"]);
+		Tester\Assert::count(2, $text2Container["div"]);
+
+		// label container
+		Tester\Assert::count(2, $text2LabelContainer);
+		Tester\Assert::count(1, $text2LabelContainer["@attributes"]);
+		Tester\Assert::same("col-3 text-right", $text2LabelContainer["@attributes"]["class"]);
+		Tester\Assert::same("text2", $text2LabelContainer["label"]);
+
+		// input container
+		Tester\Assert::count(2, $text2InputContainer);
+		Tester\Assert::count(1, $text2InputContainer["@attributes"]);
+		Tester\Assert::same("col-6", $text2InputContainer["@attributes"]["class"]);
+
+		$foo = (array) $text2InputContainer["div"];
+		Tester\Assert::count(4, $foo);
+		Tester\Assert::count(1, $foo["@attributes"]);
+		Tester\Assert::same("input-group", $foo["@attributes"]["class"]);
+		Tester\Assert::same(["right", "addon"], $foo["span"]);
+		Tester\Assert::contains("text2 error", (string) $foo["div"]);
+
+		$foo = (array) $foo["input"];
+		Tester\Assert::count(4, $foo["@attributes"]);
+		Tester\Assert::same("text", $foo["@attributes"]["type"]);
+		Tester\Assert::same("text2", $foo["@attributes"]["name"]);
+		Tester\Assert::same("frm-form2-text2", $foo["@attributes"]["id"]);
+		Tester\Assert::same("form-control-danger form-control", $foo["@attributes"]["class"]);
+
+
+		/**
+		 * upload1 field test
+		 */
+		$upload1Container = (array) $data[2];
+		$upload1LabelContainer = (array) $upload1Container["div"][0];
+		$upload1InputContainer = (array) $upload1Container["div"][1];
+
+		// container
+		Tester\Assert::count(2, $upload1Container);
+		Tester\Assert::count(1, $upload1Container["@attributes"]);
+		Tester\Assert::same("form-group row has-danger", $upload1Container["@attributes"]["class"]);
+		Tester\Assert::count(2, $upload1Container["div"]);
+
+		// label container
+		Tester\Assert::count(2, $upload1LabelContainer);
+		Tester\Assert::count(1, $upload1LabelContainer["@attributes"]);
+		Tester\Assert::same("col-3 text-right", $upload1LabelContainer["@attributes"]["class"]);
+		Tester\Assert::same("upload1", $upload1LabelContainer["label"]);
+
+		// input container
+		Tester\Assert::count(3, $upload1InputContainer);
+		Tester\Assert::count(1, $upload1InputContainer["@attributes"]);
+		Tester\Assert::same("col-6", $upload1InputContainer["@attributes"]["class"]);
+		Tester\Assert::contains("upload1 error", (string) $upload1InputContainer["div"]);
+
+		$foo = (array) $upload1InputContainer["input"];
+		Tester\Assert::count(4, $foo["@attributes"]);
+		Tester\Assert::same("file", $foo["@attributes"]["type"]);
+		Tester\Assert::same("upload1", $foo["@attributes"]["name"]);
+		Tester\Assert::same("frm-form2-upload1", $foo["@attributes"]["id"]);
+		Tester\Assert::same("form-control-danger form-control-file", $foo["@attributes"]["class"]);
 	}
 }
 

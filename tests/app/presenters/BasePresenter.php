@@ -25,11 +25,14 @@ final class BasePresenter extends Nette\Application\UI\Presenter
 	/**
 	 * @return Nette\Application\UI\Form
 	 */
-	protected function createComponentForm(): Nette\Application\UI\Form {
+	protected function createComponentForm1(): Nette\Application\UI\Form {
 		$form = $this->factory->create();
 
+		$form->addError("error1");
+
 		$form->addText("text1", "text1")
-			->setOption("left-addon", "left-addon");
+			->setOption("left-addon", "left-addon")
+			->setOption("description", "description1");
 
 		$form->addText("text2", "text2")
 			->setOption("right-addon", "right-addon");
@@ -42,12 +45,35 @@ final class BasePresenter extends Nette\Application\UI\Presenter
 
 		$form->addCheckbox("checkbox1", "checkbox1");
 
+		$form->addUpload("upload1", "upload1");
+
 		$form->addSubmit("submit1", "submit1");
 
 		$form->addComponent(new AlesWita\FormRenderer\Controls\Link("submit2"), "submit2");
 
 		$form["submit2"]->getControlPrototype()
 			->setHref($this->link("this"));
+
+		return $form;
+	}
+
+	/**
+	 * @return Nette\Application\UI\Form
+	 */
+	protected function createComponentForm2(): Nette\Application\UI\Form {
+		$form = $this->factory->create();
+
+		$form->addText("text1", "text1")
+			->setOption("left-addon", ["left", "addon"]);
+
+		$form->addText("text2", "text2")
+			->setOption("right-addon", ["right", "addon"]);
+
+		$form->addUpload("upload1", "upload1");
+
+		$form["text1"]->addError("text1 error");
+		$form["text2"]->addError("text2 error");
+		$form["upload1"]->addError("upload1 error");
 
 		return $form;
 	}
