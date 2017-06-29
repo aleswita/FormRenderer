@@ -378,6 +378,15 @@ final class BaseTest extends Tester\TestCase
 
 		Tester\Assert::same("submit2", $buttonsInputContainer["a"]);
 		Tester\Assert::false($presenter["form1"]["submit2"]->isFilled());
+
+		$data = $dom->find("a");
+		Tester\Assert::count(1, $data);
+
+		$foo = (array) $data[0];
+		Tester\Assert::count(2, $foo["@attributes"]);
+		Tester\Assert::same("/base/one", $foo["@attributes"]["href"]);
+		Tester\Assert::same("btn btn-outline-secondary disabled", $foo["@attributes"]["class"]);
+		Tester\Assert::same("submit2", $foo[0]);
 	}
 
 	/**
