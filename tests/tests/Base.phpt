@@ -42,6 +42,8 @@ final class BaseTest extends Tester\TestCase
 
 		Tester\Assert::true($response instanceof Nette\Application\Responses\TextResponse);
 		Tester\Assert::true($response->getSource() instanceof Nette\Application\UI\ITemplate);
+        Tester\Assert::true($presenter->factory->getTranslator() instanceof Nette\Localization\ITranslator);
+
 
 		$source = (string) $response->getSource();
 		$dom = Tester\DomQuery::fromHtml($source);
@@ -155,11 +157,12 @@ final class BaseTest extends Tester\TestCase
 		Tester\Assert::same("right-addon", $foo["span"]);
 
 		$foo = (array) $foo["input"];
-		Tester\Assert::count(4, $foo["@attributes"]);
+		Tester\Assert::count(5, $foo["@attributes"]);
 		Tester\Assert::same("text", $foo["@attributes"]["type"]);
 		Tester\Assert::same("text2", $foo["@attributes"]["name"]);
 		Tester\Assert::same("frm-form1-text2", $foo["@attributes"]["id"]);
 		Tester\Assert::same("form-control", $foo["@attributes"]["class"]);
+		Tester\Assert::same("disabled", $foo["@attributes"]["disabled"]);
 
 
 		/**
@@ -354,6 +357,7 @@ final class BaseTest extends Tester\TestCase
 		Tester\Assert::same("submit1", $foo["@attributes"]["value"]);
 
 		Tester\Assert::same("submit2", $buttonsInputContainer["a"]);
+        Tester\Assert::false($presenter["form1"]["submit2"]->isFilled());
 	}
 
 	/**

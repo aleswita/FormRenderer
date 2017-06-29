@@ -35,7 +35,8 @@ final class BasePresenter extends Nette\Application\UI\Presenter
 			->setOption("description", "description1");
 
 		$form->addText("text2", "text2")
-			->setOption("right-addon", "right-addon");
+			->setOption("right-addon", "right-addon")
+			->setDisabled();
 
 		$form->addSelect("select1", "select1")
 			->setItems(["0", "1"]);
