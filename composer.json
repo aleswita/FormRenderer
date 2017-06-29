@@ -1,7 +1,7 @@
 {
 	"name": "aleswita/formrenderer",
-	"description": "Form Renderer for Nette Framework and Bootstrap v4.",
-	"keywords": ["nette", "form renderer", "bootsrap"],
+	"description": "Form Renderer for Nette Framework and Bootstrap.",
+	"keywords": ["nette", "form", "renderer", "bootsrap"],
 	"license": ["MIT"],
 	"authors": [
 		{
