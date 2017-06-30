@@ -126,17 +126,17 @@ final class BaseTest extends Tester\TestCase
 		Tester\Assert::same("text1", $text1LabelContainer["label"]);
 
 		// input container
-		Tester\Assert::count(2, $text1InputContainer);
+		Tester\Assert::count(3, $text1InputContainer);
 		Tester\Assert::count(1, $text1InputContainer["@attributes"]);
 		Tester\Assert::same("col-6", $text1InputContainer["@attributes"]["class"]);
+		Tester\Assert::same("description1", $text1InputContainer["small"]);
 
 		$foo = (array) $text1InputContainer["div"];
-		Tester\Assert::count(4, $foo);
+		Tester\Assert::count(3, $foo);
 		Tester\Assert::count(1, $foo["@attributes"]);
 		Tester\Assert::same("input-group", $foo["@attributes"]["class"]);
 		Tester\Assert::same("left-addon", $foo["span"]);
 
-		Tester\Assert::same("description1", $foo["small"]);
 
 		$foo = (array) $foo["input"];
 		Tester\Assert::count(4, $foo["@attributes"]);
@@ -460,11 +460,13 @@ final class BaseTest extends Tester\TestCase
 		Tester\Assert::same("col-6", $text1InputContainer["@attributes"]["class"]);
 
 		$foo = (array) $text1InputContainer["div"];
-		Tester\Assert::count(4, $foo);
+		Tester\Assert::count(2, $foo);
+		Tester\Assert::contains("text1 error", $foo[1]);
+
+		$foo = (array) $foo[0];
 		Tester\Assert::count(1, $foo["@attributes"]);
 		Tester\Assert::same("input-group", $foo["@attributes"]["class"]);
 		Tester\Assert::same(["left", "addon"], $foo["span"]);
-		Tester\Assert::contains("text1 error", (string) $foo["div"]);
 
 		$foo = (array) $foo["input"];
 		Tester\Assert::count(4, $foo["@attributes"]);
@@ -499,11 +501,13 @@ final class BaseTest extends Tester\TestCase
 		Tester\Assert::same("col-6", $text2InputContainer["@attributes"]["class"]);
 
 		$foo = (array) $text2InputContainer["div"];
-		Tester\Assert::count(4, $foo);
+		Tester\Assert::count(2, $foo);
+		Tester\Assert::contains("text2 error", (string) $foo[1]);
+
+		$foo = (array) $foo[0];
 		Tester\Assert::count(1, $foo["@attributes"]);
 		Tester\Assert::same("input-group", $foo["@attributes"]["class"]);
 		Tester\Assert::same(["right", "addon"], $foo["span"]);
-		Tester\Assert::contains("text2 error", (string) $foo["div"]);
 
 		$foo = (array) $foo["input"];
 		Tester\Assert::count(4, $foo["@attributes"]);
