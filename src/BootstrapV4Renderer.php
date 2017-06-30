@@ -167,7 +167,13 @@ class BootstrapV4Renderer extends Nette\Forms\Rendering\DefaultFormRenderer
 				}
 
 				foreach ($children as $child) {
-					$container->insert(NULL, $child);
+					$description = Nette\Utils\Strings::after($child, $control->getControlPart()->render());
+
+					if ($description !== FALSE) {
+						$container->insert(NULL, $control->getControlPart()->render());
+					} else {
+						$container->insert(NULL, $child);
+					}
 				}
 
 				if ($rightAddon !== NULL) {
@@ -181,6 +187,11 @@ class BootstrapV4Renderer extends Nette\Forms\Rendering\DefaultFormRenderer
 				}
 
 				$parent->insert(NULL, $container);
+
+				if ($description !== FALSE) {
+					$parent->insert(NULL, $description);
+
+				}
 			}
 		}
 
