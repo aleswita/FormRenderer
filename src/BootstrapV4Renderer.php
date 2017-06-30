@@ -171,8 +171,7 @@ class BootstrapV4Renderer extends Nette\Forms\Rendering\DefaultFormRenderer
 
 					if ($foo !== FALSE) {
 						$container->insert(NULL, $control->getControlPart()->render());
-                        $description = $foo;
-
+						$description = $foo;
 					} else {
 						$container->insert(NULL, $child);
 					}
