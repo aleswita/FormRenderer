@@ -430,7 +430,7 @@ final class BaseTest extends Tester\TestCase
 		/**
 		 * field's test
 		 */
-		$data = $dom->find('div[class='form-group row has-danger']');
+		$data = $dom->find('div[class="form-group row has-danger"]');
 
 		Tester\Assert::count(3, $data);
 
