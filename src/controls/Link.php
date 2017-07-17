@@ -21,38 +21,44 @@ class Link extends Nette\Forms\Controls\Button
 	/**
 	 * @param string|object
 	 */
-	public function __construct($caption = NULL)
+	public function __construct($caption = null)
 	{
 		parent::__construct($caption);
-		$this->control = Nette\Utils\Html::el("a");
+		$this->control = Nette\Utils\Html::el('a');
 	}
+
 
 	/**
 	 * @return bool
 	 */
-	public function isFilled(): bool {
-		return FALSE;
+	public function isFilled(): bool
+	{
+		return false;
 	}
+
 
 	/**
 	 * @param string|object
 	 * @return void
 	 */
-	public function getLabel($caption = NULL): void {
+	public function getLabel($caption = null): void
+	{
 	}
+
 
 	/**
 	 * @param string|object
 	 * @return Nette\Utils\Html
 	 */
-	public function getControl($caption = NULL): Nette\Utils\Html {
-		$this->setOption("rendered", TRUE);
+	public function getControl($caption = null): Nette\Utils\Html
+	{
+		$this->setOption('rendered', true);
 		$el = clone $this->control;
 
-		$el->setText($this->translate($caption === NULL ? $this->caption : $caption));
+		$el->setText($this->translate($caption === null ? $this->caption : $caption));
 
 		if ($this->isDisabled()) {
-			$el->addClass("disabled");
+			$el->addClass('disabled');
 		}
 
 		return $el;

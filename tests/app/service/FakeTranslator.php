@@ -23,7 +23,8 @@ final class FakeTranslator implements Nette\Localization\ITranslator
 	 * @param int
 	 * @return string
 	 */
-	public function translate($message, $count = NULL): string {
+	public function translate($message, $count = null): string
+	{
 		return $message;
 	}
 }

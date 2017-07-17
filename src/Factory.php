@@ -21,6 +21,7 @@ class Factory
 	/** @var Nette\Localization\ITranslator */
 	protected $translator;
 
+
 	/**
 	 * @param Nette\Localization\ITranslator
 	 */
@@ -29,17 +30,21 @@ class Factory
 		$this->translator = $translator;
 	}
 
+
 	/**
 	 * @return Nette\Localization\ITranslator
 	 */
-	public function getTranslator(): Nette\Localization\ITranslator {
+	public function getTranslator(): Nette\Localization\ITranslator
+	{
 		return $this->translator;
 	}
+
 
 	/**
 	 * @return Nette\Application\UI\Form
 	 */
-	public function create(): Nette\Application\UI\Form {
+	public function create(): Nette\Application\UI\Form
+	{
 		$form = new Nette\Application\UI\Form;
 
 		$form->addProtection();
