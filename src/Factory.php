@@ -21,13 +21,18 @@ class Factory
 	/** @var Nette\Localization\ITranslator */
 	protected $translator;
 
+	/** @var string */
+	protected $renderer;
+
 
 	/**
 	 * @param Nette\Localization\ITranslator
+	 * @param string
 	 */
-	public function __construct(Nette\Localization\ITranslator $translator)
+	public function __construct(Nette\Localization\ITranslator $translator, string $renderer = BootstrapV4Renderer::class)
 	{
 		$this->translator = $translator;
+		$this->renderer = $renderer;
 	}
 
 
@@ -49,7 +54,7 @@ class Factory
 
 		$form->addProtection();
 		$form->setTranslator($this->translator);
-		$form->setRenderer(new BootstrapV4Renderer);
+		$form->setRenderer(new $this->renderer);
 
 		return $form;
 	}
