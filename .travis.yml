@@ -2,11 +2,14 @@ language: php
 
 php:
     - 7.1
+    - master
 
+env:
+    coverage=on
+    
 matrix:
-    include:
-        - php: 7.1
-          env: coverage=on
+    allow_failures:
+        - php: master
 
 script:
     - vendor/bin/tester tests -s $coverageArgs
@@ -25,4 +28,7 @@ after_script:
       || true; fi
 
 after_failure:
+    - for i in $(find ./tests -name \*.expected); do echo "--- $i"; cat $i; echo; echo; done
     - for i in $(find ./tests -name \*.actual); do echo "--- $i"; cat $i; echo; echo; done
+
+sudo: false
