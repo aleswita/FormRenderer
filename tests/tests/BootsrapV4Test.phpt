@@ -557,9 +557,9 @@ final class BootstrapV4Test extends Tester\TestCase
 	 */
 	public function testThree(): void {
 		$originalRenderer = new Nette\Forms\Rendering\DefaultFormRenderer;
-		$bootsrapRenderer = new AlesWita\FormRenderer\BootsrapV4Renderer;
+		$bootstrapRenderer = new AlesWita\FormRenderer\BootstrapV4Renderer;
 
-		Tester\Assert::true($this->arrayIntegrityCheck($originalRenderer->wrappers, $bootsrapRenderer->wrappers));
+		Tester\Assert::true($this->arrayIntegrityCheck($originalRenderer->wrappers, $bootstrapRenderer->wrappers));
 	}
 
 
