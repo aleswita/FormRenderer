@@ -18,7 +18,7 @@ You can use renderer as classic renderer in form factory:
 $form = new Nette\Application\UI\Form;
 $form->setRenderer(new AlesWita\FormRenderer\BootstrapV4Renderer);
 ```
-..or you can use prepared factory
+..or you can use prepared factory:
 ```neon
 services:
 	- AlesWita\FormRenderer\Factory(@Nette\Localization\ITranslator)
@@ -72,6 +72,7 @@ $form->addText('text1', 'Label:')
 $form->addText('text2', 'Label:')
 	->addOption('right-addon', ['addon', 'text']);
 ```
+- **Link Control** for forms
 
 **Link control** it's a form component, that can input link to your form as a button, look at the example:
 ```php
