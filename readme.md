@@ -75,22 +75,21 @@ $form->addText('text2', 'Label:')
 
 **Link control** it's a form component, that can input link to your form as a button, look at the example:
 ```php
-	/**
-	 * @return Nette\Application\UI\Form
-	 */
-	public function create(): Nette\Application\UI\Form
-	{
-		$form = $this->factory->create();
+/**
+ * @return Nette\Application\UI\Form
+ */
+public function create(): Nette\Application\UI\Form
+{
+	$form = $this->factory->create();
 
-		...
+	...
 
-		$form->addComponent(new AlesWita\FormRenderer\Controls\Link('Cancel'), 'cancel');
+	$form->addComponent(new AlesWita\FormRenderer\Controls\Link('Cancel'), 'cancel');
 
-		$form['cancel']->getControlPrototype()
-			->addClass('ajax')
-			->setHref($this->link('cancel!'));
+	$form['cancel']->getControlPrototype()
+		->addClass('ajax')
+		->setHref($this->link('cancel!'));
 
-		return $form;
-	}
+	return $form;
 }
 ```
