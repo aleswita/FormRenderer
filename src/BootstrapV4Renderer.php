@@ -25,14 +25,14 @@ class BootstrapV4Renderer extends Nette\Forms\Rendering\DefaultFormRenderer
 		],
 
 		'error' => [
-			'container' => "div class='row mb-3'",
-			'item' => "div class='col-12 alert alert-danger'",
+			'container' => 'div class="row mb-3"',
+			'item' => 'div class="col-12 alert alert-danger"',
 		],
 
 		'group' => [
 			'container' => null,
-			'label' => "p class='h3 modal-header'",
-			'description' => "p class='lead'",
+			'label' => 'p class="h3 modal-header"',
+			'description' => 'p class="lead"',
 		],
 
 		'controls' => [
@@ -40,7 +40,7 @@ class BootstrapV4Renderer extends Nette\Forms\Rendering\DefaultFormRenderer
 		],
 
 		'pair' => [
-			'container' => "div class='form-group row'",
+			'container' => 'div class="form-group row"',
 			'.required' => null,
 			'.optional' => null,
 			'.odd' => null,
@@ -48,12 +48,12 @@ class BootstrapV4Renderer extends Nette\Forms\Rendering\DefaultFormRenderer
 		],
 
 		'control' => [
-			'container' => "div class='col-6'",
+			'container' => 'div class="col-6"',
 			'.odd' => null,
 
-			'description' => "small class='form-text text-muted'",
+			'description' => 'small class="form-text text-muted"',
 			'requiredsuffix' => null,
-			'errorcontainer' => "div class='form-control-feedback'",
+			'errorcontainer' => 'div class="form-control-feedback"',
 			'erroritem' => null,
 
 			'.required' => null,
@@ -68,7 +68,7 @@ class BootstrapV4Renderer extends Nette\Forms\Rendering\DefaultFormRenderer
 		],
 
 		'label' => [
-			'container' => "div class='col-3 text-right'",
+			'container' => 'div class="col-3 text-right"',
 			'suffix' => null,
 			'requiredsuffix' => '*',
 		],
