@@ -2,14 +2,14 @@ language: php
 
 php:
     - 7.1
-    - master
+    - 7.2
 
 env:
     coverage=on
 
 matrix:
     allow_failures:
-        - php: master
+        - php: 7.2
 
 script:
     - vendor/bin/tester tests -s $coverageArgs
