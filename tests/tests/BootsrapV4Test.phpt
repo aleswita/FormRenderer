@@ -27,7 +27,8 @@ final class BootstrapV4Test extends Tester\TestCase
 	/**
 	 * @return void
 	 */
-	public function testOne(): void {
+	public function testOne(): void
+	{
 		$configurator = new Nette\Configurator();
 		$configurator->setTempDirectory(TEMP_DIR);
 		$configurator->addConfig(__DIR__ . '/../app/config/config.neon');
@@ -36,7 +37,7 @@ final class BootstrapV4Test extends Tester\TestCase
 		$presenterFactory = $container->getByType('Nette\\Application\\IPresenterFactory');
 
 		$presenter = $presenterFactory->createPresenter('Base');
-		$presenter->autoCanonicalize = FALSE;
+		$presenter->autoCanonicalize = false;
 		$request = new Nette\Application\Request('Base', 'GET', ['action' => 'one']);
 		$response = $presenter->run($request);
 
@@ -393,7 +394,8 @@ final class BootstrapV4Test extends Tester\TestCase
 	/**
 	 * @return void
 	 */
-	public function testTwo(): void {
+	public function testTwo(): void
+	{
 		$configurator = new Nette\Configurator();
 		$configurator->setTempDirectory(TEMP_DIR);
 		$configurator->addConfig(__DIR__ . '/../app/config/config.neon');
@@ -402,7 +404,7 @@ final class BootstrapV4Test extends Tester\TestCase
 		$presenterFactory = $container->getByType('Nette\\Application\\IPresenterFactory');
 
 		$presenter = $presenterFactory->createPresenter('Base');
-		$presenter->autoCanonicalize = FALSE;
+		$presenter->autoCanonicalize = false;
 		$request = new Nette\Application\Request('Base', 'GET', ['action' => 'two']);
 		$response = $presenter->run($request);
 
@@ -555,7 +557,8 @@ final class BootstrapV4Test extends Tester\TestCase
 	/**
 	 * @return void
 	 */
-	public function testThree(): void {
+	public function testThree(): void
+	{
 		$originalRenderer = new Nette\Forms\Rendering\DefaultFormRenderer;
 		$bootstrapRenderer = new AlesWita\FormRenderer\BootstrapV4Renderer;
 
@@ -568,7 +571,8 @@ final class BootstrapV4Test extends Tester\TestCase
 	 * @param array
 	 * @return bool
 	 */
-	private function arrayIntegrityCheck(array $arr1, array $arr2): bool {
+	private function arrayIntegrityCheck(array $arr1, array $arr2): bool
+	{
 		foreach ($arr1 as $key => $value) {
 			if (!array_key_exists($key, $arr2)) {
 				return false;
