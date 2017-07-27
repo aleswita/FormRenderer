@@ -94,7 +94,7 @@ final class BootstrapV4Test extends Tester\TestCase
 		$foo = (array) $data[1];
 		Tester\Assert::count(2, $foo);
 		Tester\Assert::count(1, $foo['@attributes']);
-		Tester\Assert::same('lead', $foo['@attributes']['class']);
+		Tester\Assert::same('pl-3 lead', $foo['@attributes']['class']);
 		Tester\Assert::same('group1 description', $foo[0]);
 
 

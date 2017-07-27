@@ -32,7 +32,7 @@ class BootstrapV4Renderer extends Nette\Forms\Rendering\DefaultFormRenderer
 		'group' => [
 			'container' => null,
 			'label' => 'p class="h3 modal-header"',
-			'description' => 'p class="lead"',
+			'description' => 'p class="pl-3 lead"',
 		],
 
 		'controls' => [
