@@ -14,10 +14,12 @@ matrix:
 script:
     - vendor/bin/tester tests -s $coverageArgs
     - php temp/code-checker/src/code-checker.php --short-arrays --strict-types
+    - php temp/coding-standard/vendor/symplify/easy-coding-standard/bin/ecs check src tests --config temp/coding-standard/coding-standard-php71.neon
 
 before_script:
     - travis_retry composer install --no-interaction --prefer-dist
     - travis_retry composer create-project nette/code-checker temp/code-checker ~2.8 --no-interaction
+    - travis_retry composer create-project nette/coding-standard temp/coding-standard --no-progress
     - if [ "$coverage" == "on" ]; then coverageArgs="-p phpdbg --coverage ./coverage.xml --coverage-src ./src"; fi
 
 after_script:
