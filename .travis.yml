@@ -19,7 +19,7 @@ script:
     - if [ "$phpstan" = "1" ]; then php vendor/phpstan/phpstan-shim/phpstan.phar analyse --ansi --no-progress -l7 -c phpstan.neon src tests/tests; fi
 
 before_script:
-    - if [ "$phpstan" = "on" ]; then composer require --dev --no-update phpstan/phpstan-shim:^0.8; fi
+    - if [ "$phpstan" = "on" ]; then composer require --dev --no-update phpstan/phpstan-shim:^0.7; fi
     - travis_retry composer install --no-interaction --prefer-dist
     - travis_retry composer create-project nette/code-checker temp/code-checker ~2 --no-interaction
     - travis_retry composer create-project nette/coding-standard temp/coding-standard --no-progress
