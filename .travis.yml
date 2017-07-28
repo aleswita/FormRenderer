@@ -16,7 +16,7 @@ script:
     - vendor/bin/tester tests -s $coverageArgs
     - php temp/code-checker/src/code-checker.php --short-arrays --strict-types
     - php temp/coding-standard/vendor/symplify/easy-coding-standard/bin/ecs check src tests --config temp/coding-standard/coding-standard-php71.neon
-    - if [ "$phpstan" = "1" ]; then php vendor/phpstan/phpstan-shim/phpstan.phar analyse --ansi --no-progress -l7 -c phpstan.neon src tests/tests; fi
+    - if [ "$phpstan" = "on" ]; then php vendor/phpstan/phpstan-shim/phpstan.phar analyse --ansi --no-progress -l7 -c phpstan.neon src tests/tests; fi
 
 before_script:
     - if [ "$phpstan" = "on" ]; then composer require --dev --no-update phpstan/phpstan-shim:^0.7; fi
