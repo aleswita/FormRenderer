@@ -3,592 +3,221 @@
 /**
  * This file is part of the AlesWita\FormRenderer
  * Copyright (c) 2017 Ales Wita (aleswita+github@gmail.com)
- *
- * @phpVersion 7.1.0
  */
 
 declare(strict_types=1);
 
-namespace AlesWita\FormRenderer\Tests\Tests;
+namespace AlesWita\FormRenderer;
 
-use AlesWita;
 use Nette;
-use Tester;
-
-require_once __DIR__ . '/../bootstrap.php';
 
 
 /**
  * @author Ales Wita
  * @license MIT
  */
-final class BootstrapV4Test extends Tester\TestCase
+class BootstrapV4Renderer extends Nette\Forms\Rendering\DefaultFormRenderer
 {
-	/**
-	 * @return void
-	 */
-	public function testOne(): void
-	{
-		$configurator = new Nette\Configurator();
-		$configurator->setTempDirectory(TEMP_DIR);
-		$configurator->addConfig(__DIR__ . '/../app/config/config.neon');
-
-		$container = $configurator->createContainer();
-		$presenterFactory = $container->getByType('Nette\\Application\\IPresenterFactory');
-
-		$presenter = $presenterFactory->createPresenter('Base');
-		$presenter->autoCanonicalize = false;
-		$request = new Nette\Application\Request('Base', 'GET', ['action' => 'one']);
-		$response = $presenter->run($request);
-
-		Tester\Assert::true($response instanceof Nette\Application\Responses\TextResponse);
-		Tester\Assert::true($response->getSource() instanceof Nette\Application\UI\ITemplate);
-		Tester\Assert::true($presenter->factory->getTranslator() instanceof Nette\Localization\ITranslator);
-
-
-		$source = (string) $response->getSource();
-		$dom = Tester\DomQuery::fromHtml($source);
-
-
-		/**
-		 * form test
-		 */
-		$data = $dom->find('form');
-
-		Tester\Assert::count(1, $data);
-
-		$foo = (array) $data[0];
-		Tester\Assert::count(4, $foo['@attributes']);
-		Tester\Assert::same('/base/one', $foo['@attributes']['action']);
-		Tester\Assert::same('post', $foo['@attributes']['method']);
-		Tester\Assert::same('multipart/form-data', $foo['@attributes']['enctype']);
-		Tester\Assert::same('frm-form1', $foo['@attributes']['id']);
-
-
-		/**
-		 * form error test
-		 */
-		$data = $dom->find('div[class="row mb-3"]');
-
-		Tester\Assert::count(1, $data);
-
-		$foo = (array) $data[0];
-		Tester\Assert::count(2, $foo);
-		Tester\Assert::count(1, $foo['@attributes']);
-		Tester\Assert::same('row mb-3', $foo['@attributes']['class']);
-		Tester\Assert::same('error1', $foo['div']);
-
-
-		/**
-		 * form group test
-		 */
-		$data = $dom->find('p');
-
-		Tester\Assert::count(2, $data);
-
-		$foo = (array) $data[0];
-		Tester\Assert::count(2, $foo);
-		Tester\Assert::count(1, $foo['@attributes']);
-		Tester\Assert::same('h3 modal-header', $foo['@attributes']['class']);
-		Tester\Assert::same('group1 label', $foo[0]);
-
-		$foo = (array) $data[1];
-		Tester\Assert::count(2, $foo);
-		Tester\Assert::count(1, $foo['@attributes']);
-		Tester\Assert::same('pl-3 lead', $foo['@attributes']['class']);
-		Tester\Assert::same('group1 description', $foo[0]);
-
-
-		/**
-		 * field's test
-		 */
-		$data = $dom->find('div[class="form-group row"]');
-
-		Tester\Assert::count(7, $data);
-
-
-		/**
-		 * text1 field test
-		 */
-		$text1Container = (array) $data[0];
-		$text1LabelContainer = (array) $text1Container['div'][0];
-		$text1InputContainer = (array) $text1Container['div'][1];
-
-		// container
-		Tester\Assert::count(2, $text1Container);
-		Tester\Assert::count(1, $text1Container['@attributes']);
-		Tester\Assert::same('form-group row', $text1Container['@attributes']['class']);
-		Tester\Assert::count(2, $text1Container['div']);
-
-		// label container
-		Tester\Assert::count(2, $text1LabelContainer);
-		Tester\Assert::count(1, $text1LabelContainer['@attributes']);
-		Tester\Assert::same('col-md-3 text-md-right col-sm-12', $text1LabelContainer['@attributes']['class']);
-		Tester\Assert::same('text1', $text1LabelContainer['label']);
-
-		// input container
-		Tester\Assert::count(3, $text1InputContainer);
-		Tester\Assert::count(1, $text1InputContainer['@attributes']);
-		Tester\Assert::same('col-lg-6 col-md-9 col-sm-12', $text1InputContainer['@attributes']['class']);
-		Tester\Assert::same('description1', $text1InputContainer['small']);
-
-		$foo = (array) $text1InputContainer['div'];
-		Tester\Assert::count(3, $foo);
-		Tester\Assert::count(1, $foo['@attributes']);
-		Tester\Assert::same('input-group', $foo['@attributes']['class']);
-		Tester\Assert::same('left-addon', $foo['span']);
-
-
-		$foo = (array) $foo['input'];
-		Tester\Assert::count(4, $foo['@attributes']);
-		Tester\Assert::same('text', $foo['@attributes']['type']);
-		Tester\Assert::same('text1', $foo['@attributes']['name']);
-		Tester\Assert::same('frm-form1-text1', $foo['@attributes']['id']);
-		Tester\Assert::same('form-control', $foo['@attributes']['class']);
-
-
-		/**
-		 * text2 field test
-		 */
-		$text2Container = (array) $data[1];
-		$text2LabelContainer = (array) $text2Container['div'][0];
-		$text2InputContainer = (array) $text2Container['div'][1];
-
-		// container
-		Tester\Assert::count(2, $text2Container);
-		Tester\Assert::count(1, $text2Container['@attributes']);
-		Tester\Assert::same('form-group row', $text2Container['@attributes']['class']);
-		Tester\Assert::count(2, $text2Container['div']);
-
-		// label container
-		Tester\Assert::count(2, $text2LabelContainer);
-		Tester\Assert::count(1, $text2LabelContainer['@attributes']);
-		Tester\Assert::same('col-md-3 text-md-right col-sm-12', $text2LabelContainer['@attributes']['class']);
-		Tester\Assert::same('text2', $text2LabelContainer['label']);
-
-		// input container
-		Tester\Assert::count(2, $text2InputContainer);
-		Tester\Assert::count(1, $text2InputContainer['@attributes']);
-		Tester\Assert::same('col-lg-6 col-md-9 col-sm-12', $text2InputContainer['@attributes']['class']);
-
-		$foo = (array) $text2InputContainer['div'];
-		Tester\Assert::count(3, $foo);
-		Tester\Assert::count(1, $foo['@attributes']);
-		Tester\Assert::same('input-group', $foo['@attributes']['class']);
-		Tester\Assert::same('right-addon', $foo['span']);
-
-		$foo = (array) $foo['input'];
-		Tester\Assert::count(5, $foo['@attributes']);
-		Tester\Assert::same('text', $foo['@attributes']['type']);
-		Tester\Assert::same('text2', $foo['@attributes']['name']);
-		Tester\Assert::same('frm-form1-text2', $foo['@attributes']['id']);
-		Tester\Assert::same('form-control', $foo['@attributes']['class']);
-		Tester\Assert::same('disabled', $foo['@attributes']['disabled']);
-
-
-		/**
-		 * select1 field test
-		 */
-		$select1Container = (array) $data[2];
-		$select1LabelContainer = (array) $select1Container['div'][0];
-		$select1InputContainer = (array) $select1Container['div'][1];
-
-		// container
-		Tester\Assert::count(2, $select1Container);
-		Tester\Assert::count(1, $select1Container['@attributes']);
-		Tester\Assert::same('form-group row', $select1Container['@attributes']['class']);
-		Tester\Assert::count(2, $select1Container['div']);
-
-		// label container
-		Tester\Assert::count(2, $select1LabelContainer);
-		Tester\Assert::count(1, $select1LabelContainer['@attributes']);
-		Tester\Assert::same('col-md-3 text-md-right col-sm-12', $select1LabelContainer['@attributes']['class']);
-		Tester\Assert::same('select1', $select1LabelContainer['label']);
-
-		// input container
-		Tester\Assert::count(2, $select1InputContainer);
-		Tester\Assert::same('col-lg-6 col-md-9 col-sm-12', $select1InputContainer['@attributes']['class']);
-
-		$foo = (array) $select1InputContainer['select'];
-
-		Tester\Assert::count(3, $foo['@attributes']);
-		Tester\Assert::same('select1', $foo['@attributes']['name']);
-		Tester\Assert::same('frm-form1-select1', $foo['@attributes']['id']);
-		Tester\Assert::same('form-control', $foo['@attributes']['class']);
-
-		Tester\Assert::count(2, $foo['option']);
-		Tester\Assert::same('0', $foo['option'][0]);
-		Tester\Assert::same('1', $foo['option'][1]);
-
-
-		/**
-		 * radio1 field test
-		 */
-		$radio1Container = (array) $data[3];
-		$radio1LabelContainer = (array) $radio1Container['div'][0];
-		$radio1InputContainer = (array) $radio1Container['div'][1];
-
-		// container
-		Tester\Assert::count(2, $radio1Container);
-		Tester\Assert::count(1, $radio1Container['@attributes']);
-		Tester\Assert::same('form-group row', $radio1Container['@attributes']['class']);
-		Tester\Assert::count(2, $radio1Container['div']);
-
-		// label container
-		Tester\Assert::count(2, $radio1LabelContainer);
-		Tester\Assert::count(1, $radio1LabelContainer['@attributes']);
-		Tester\Assert::same('col-md-3 text-md-right col-sm-12', $radio1LabelContainer['@attributes']['class']);
-		Tester\Assert::same('radio1', $radio1LabelContainer['label']);
-
-		// input container
-		Tester\Assert::count(2, $radio1InputContainer);
-		Tester\Assert::count(1, $radio1InputContainer['@attributes']);
-		Tester\Assert::same('col-lg-6 col-md-9 col-sm-12', $radio1InputContainer['@attributes']['class']);
-
-		$foo = (array) $radio1InputContainer['div'];
-		Tester\Assert::count(1, $foo['@attributes']);
-		Tester\Assert::same('form-check', $foo['@attributes']['class']);
-		Tester\Assert::count(2, $foo['label']);
-
-		$foo = (array) $foo['label'][0];
-		Tester\Assert::count(2, $foo);
-		Tester\Assert::count(1, $foo['@attributes']);
-		Tester\Assert::same('form-check-label', $foo['@attributes']['class']);
-
-		$foo = (array) $foo['input'];
-		Tester\Assert::count(1, $foo);
-		Tester\Assert::count(4, $foo['@attributes']);
-		Tester\Assert::same('radio', $foo['@attributes']['type']);
-		Tester\Assert::same('radio1', $foo['@attributes']['name']);
-		Tester\Assert::same('form-check-input', $foo['@attributes']['class']);
-		Tester\Assert::same('0', $foo['@attributes']['value']);
-
-		$foo = (array) $radio1InputContainer['div'];
-		$foo = (array) $foo['label'][1];
-		Tester\Assert::count(2, $foo);
-		Tester\Assert::count(1, $foo['@attributes']);
-		Tester\Assert::same('form-check-label', $foo['@attributes']['class']);
-
-		$foo = (array) $foo['input'];
-		Tester\Assert::count(1, $foo);
-		Tester\Assert::count(4, $foo['@attributes']);
-		Tester\Assert::same('radio', $foo['@attributes']['type']);
-		Tester\Assert::same('radio1', $foo['@attributes']['name']);
-		Tester\Assert::same('form-check-input', $foo['@attributes']['class']);
-		Tester\Assert::same('1', $foo['@attributes']['value']);
-
-
-		/**
-		 * checkbox1 field test
-		 */
-		$checkbox1Container = (array) $data[4];
-		$checkbox1LabelContainer = (array) $checkbox1Container['div'][0];
-		$checkbox1InputContainer = (array) $checkbox1Container['div'][1];
-
-		// container
-		Tester\Assert::count(2, $checkbox1Container);
-		Tester\Assert::count(1, $checkbox1Container['@attributes']);
-		Tester\Assert::same('form-group row', $checkbox1Container['@attributes']['class']);
-		Tester\Assert::count(2, $checkbox1Container['div']);
-
-		// label container
-		Tester\Assert::count(1, $checkbox1LabelContainer);
-		Tester\Assert::count(1, $checkbox1LabelContainer['@attributes']);
-		Tester\Assert::same('col-md-3 text-md-right col-sm-12', $checkbox1LabelContainer['@attributes']['class']);
-
-		// input container
-		Tester\Assert::count(2, $checkbox1InputContainer);
-		Tester\Assert::count(1, $checkbox1InputContainer['@attributes']);
-		Tester\Assert::same('col-lg-6 col-md-9 col-sm-12', $checkbox1InputContainer['@attributes']['class']);
-
-		$foo = (array) $checkbox1InputContainer['label'];
-		Tester\Assert::count(2, $foo['@attributes']);
-		Tester\Assert::same('form-check-label', $foo['@attributes']['class']);
-		Tester\Assert::same('frm-form1-checkbox1', $foo['@attributes']['for']);
-
-		$foo = (array) $foo['input'];
-		Tester\Assert::count(1, $foo);
-		Tester\Assert::count(4, $foo['@attributes']);
-		Tester\Assert::same('checkbox', $foo['@attributes']['type']);
-		Tester\Assert::same('checkbox1', $foo['@attributes']['name']);
-		Tester\Assert::same('form-check-input', $foo['@attributes']['class']);
-		Tester\Assert::same('frm-form1-checkbox1', $foo['@attributes']['id']);
-
-
-		/**
-		 * upload1 field test
-		 */
-		$upload1Container = (array) $data[5];
-		$upload1LabelContainer = (array) $upload1Container['div'][0];
-		$upload1InputContainer = (array) $upload1Container['div'][1];
-
-		// container
-		Tester\Assert::count(2, $upload1Container);
-		Tester\Assert::count(1, $upload1Container['@attributes']);
-		Tester\Assert::same('form-group row', $upload1Container['@attributes']['class']);
-		Tester\Assert::count(2, $upload1Container['div']);
-
-		// label container
-		Tester\Assert::count(2, $upload1LabelContainer);
-		Tester\Assert::count(1, $upload1LabelContainer['@attributes']);
-		Tester\Assert::same('col-md-3 text-md-right col-sm-12', $upload1LabelContainer['@attributes']['class']);
-		Tester\Assert::same('upload1', $upload1LabelContainer['label']);
-
-		// input container
-		Tester\Assert::count(2, $upload1InputContainer);
-		Tester\Assert::count(1, $upload1InputContainer['@attributes']);
-		Tester\Assert::same('col-lg-6 col-md-9 col-sm-12', $upload1InputContainer['@attributes']['class']);
-
-		$foo = (array) $upload1InputContainer['input'];
-		Tester\Assert::count(4, $foo['@attributes']);
-		Tester\Assert::same('file', $foo['@attributes']['type']);
-		Tester\Assert::same('upload1', $foo['@attributes']['name']);
-		Tester\Assert::same('frm-form1-upload1', $foo['@attributes']['id']);
-		Tester\Assert::same('form-control-file', $foo['@attributes']['class']);
-
-
-		/**
-		 * submit1 & submit2 buttons test
-		 */
-		$buttonsContainer = (array) $data[6];
-		$buttonsLabelContainer = (array) $buttonsContainer['div'][0];
-		$buttonsInputContainer = (array) $buttonsContainer['div'][1];
-
-		// container
-		Tester\Assert::count(2, $buttonsContainer);
-		Tester\Assert::count(1, $buttonsContainer['@attributes']);
-		Tester\Assert::same('form-group row', $buttonsContainer['@attributes']['class']);
-		Tester\Assert::count(2, $buttonsContainer['div']);
-
-		// label container
-		Tester\Assert::count(1, $buttonsLabelContainer);
-		Tester\Assert::count(1, $buttonsLabelContainer['@attributes']);
-		Tester\Assert::same('col-md-3 text-md-right col-sm-12', $buttonsLabelContainer['@attributes']['class']);
-
-		// input container
-		Tester\Assert::count(3, $buttonsInputContainer);
-		Tester\Assert::count(1, $buttonsInputContainer['@attributes']);
-		Tester\Assert::same('col-lg-6 col-md-9 col-sm-12', $buttonsInputContainer['@attributes']['class']);
-
-		$foo = (array) $buttonsInputContainer['input'];
-		Tester\Assert::count(4, $foo['@attributes']);
-		Tester\Assert::same('submit', $foo['@attributes']['type']);
-		Tester\Assert::same('submit1', $foo['@attributes']['name']);
-		Tester\Assert::same('btn btn-outline-primary', $foo['@attributes']['class']);
-		Tester\Assert::same('submit1', $foo['@attributes']['value']);
-
-		Tester\Assert::same('submit2', $buttonsInputContainer['a']);
-		Tester\Assert::false($presenter['form1']['submit2']->isFilled());
-
-		$data = $dom->find('a');
-		Tester\Assert::count(1, $data);
-
-		$foo = (array) $data[0];
-		Tester\Assert::count(2, $foo['@attributes']);
-		Tester\Assert::same('/base/one', $foo['@attributes']['href']);
-		Tester\Assert::same('btn btn-outline-secondary disabled', $foo['@attributes']['class']);
-		Tester\Assert::same('submit2', $foo[0]);
-	}
+	/** @var array */
+	public $wrappers = [
+		'form' => [
+			'container' => null,
+		],
+
+		'error' => [
+			'container' => 'div class="row mb-3"',
+			'item' => 'div class="col-12 alert alert-danger"',
+		],
+
+		'group' => [
+			'container' => null,
+			'label' => 'p class="h3 modal-header"',
+			'description' => 'p class="pl-3 lead"',
+		],
+
+		'controls' => [
+			'container' => null,
+		],
+
+		'pair' => [
+			'container' => 'div class="form-group row"',
+			'.required' => null,
+			'.optional' => null,
+			'.odd' => null,
+			'.error' => null,
+		],
+
+		'control' => [
+			'container' => 'div class="col-lg-6 col-md-9 col-sm-12"',
+			'.odd' => null,
+
+			'description' => 'small class="form-text text-muted"',
+			'requiredsuffix' => null,
+			'errorcontainer' => 'div class="invalid-feedback"',
+			'erroritem' => null,
+
+			'.required' => null,
+			'.text' => null,
+			'.password' => null,
+			'.file' => null,
+			'.email' => null,
+			'.number' => null,
+			'.submit' => null,
+			'.image' => null,
+			'.button' => null,
+		],
+
+		'label' => [
+			'container' => 'div class="col-md-3 text-md-right col-sm-12"',
+			'suffix' => null,
+			'requiredsuffix' => '*',
+		],
+
+		'hidden' => [
+			'container' => null,
+		],
+	];
 
 
 	/**
-	 * @return void
+	 * @param Nette\Forms\IControl
+	 * @param bool
+	 * @return string
 	 */
-	public function testTwo(): void
+	public function renderErrors(Nette\Forms\IControl $control = null, $own = true)
 	{
-		$configurator = new Nette\Configurator();
-		$configurator->setTempDirectory(TEMP_DIR);
-		$configurator->addConfig(__DIR__ . '/../app/config/config.neon');
+		if ($control instanceof Nette\Forms\Controls\Checkbox || $control instanceof Nette\Forms\Controls\RadioList || $control instanceof Nette\Forms\Controls\UploadControl) {
+			$temp = $this->wrappers['control']['errorcontainer'];
+			$this->wrappers['control']['errorcontainer'] = $this->wrappers['control']['errorcontainer'] . ' style="display: block"';
+		}
 
-		$container = $configurator->createContainer();
-		$presenterFactory = $container->getByType('Nette\\Application\\IPresenterFactory');
+		$parent = parent::renderErrors($control, $own);
 
-		$presenter = $presenterFactory->createPresenter('Base');
-		$presenter->autoCanonicalize = false;
-		$request = new Nette\Application\Request('Base', 'GET', ['action' => 'two']);
-		$response = $presenter->run($request);
+		if ($control instanceof Nette\Forms\Controls\Checkbox || $control instanceof Nette\Forms\Controls\RadioList || $control instanceof Nette\Forms\Controls\UploadControl) {
+			$this->wrappers['control']['errorcontainer'] = $temp;
+		}
 
-		Tester\Assert::true($response instanceof Nette\Application\Responses\TextResponse);
-		Tester\Assert::true($response->getSource() instanceof Nette\Application\UI\ITemplate);
-
-		$source = (string) $response->getSource();
-		$dom = Tester\DomQuery::fromHtml($source);
-
-
-		/**
-		 * form test
-		 */
-		$data = $dom->find('form');
-
-		Tester\Assert::count(1, $data);
-
-		$foo = (array) $data[0];
-		Tester\Assert::count(4, $foo['@attributes']);
-		Tester\Assert::same('/base/two', $foo['@attributes']['action']);
-		Tester\Assert::same('post', $foo['@attributes']['method']);
-		Tester\Assert::same('multipart/form-data', $foo['@attributes']['enctype']);
-		Tester\Assert::same('frm-form2', $foo['@attributes']['id']);
-
-
-		/**
-		 * field's test
-		 */
-		$data = $dom->find('div[class="form-group row"]');
-
-		Tester\Assert::count(3, $data);
-
-
-		/**
-		 * text1 field test
-		 */
-		$text1Container = (array) $data[0];
-		$text1LabelContainer = (array) $text1Container['div'][0];
-		$text1InputContainer = (array) $text1Container['div'][1];
-
-		// container
-		Tester\Assert::count(2, $text1Container);
-		Tester\Assert::count(1, $text1Container['@attributes']);
-		Tester\Assert::same('form-group row', $text1Container['@attributes']['class']);
-		Tester\Assert::count(2, $text1Container['div']);
-
-		// label container
-		Tester\Assert::count(2, $text1LabelContainer);
-		Tester\Assert::count(1, $text1LabelContainer['@attributes']);
-		Tester\Assert::same('col-md-3 text-md-right col-sm-12', $text1LabelContainer['@attributes']['class']);
-		Tester\Assert::same('text1', $text1LabelContainer['label']);
-
-		// input container
-		Tester\Assert::count(2, $text1InputContainer);
-		Tester\Assert::count(1, $text1InputContainer['@attributes']);
-		Tester\Assert::same('col-lg-6 col-md-9 col-sm-12', $text1InputContainer['@attributes']['class']);
-
-		$foo = (array) $text1InputContainer['div'];
-		Tester\Assert::count(2, $foo);
-		Tester\Assert::contains('text1 error', $foo[1]);
-
-		$foo = (array) $foo[0];
-		Tester\Assert::count(1, $foo['@attributes']);
-		Tester\Assert::same('input-group', $foo['@attributes']['class']);
-		Tester\Assert::same(['left', 'addon'], $foo['span']);
-
-		$foo = (array) $foo['input'];
-		Tester\Assert::count(4, $foo['@attributes']);
-		Tester\Assert::same('text', $foo['@attributes']['type']);
-		Tester\Assert::same('text1', $foo['@attributes']['name']);
-		Tester\Assert::same('frm-form2-text1', $foo['@attributes']['id']);
-		Tester\Assert::same('is-invalid form-control', $foo['@attributes']['class']);
-
-
-		/**
-		 * text2 field test
-		 */
-		$text2Container = (array) $data[1];
-		$text2LabelContainer = (array) $text2Container['div'][0];
-		$text2InputContainer = (array) $text2Container['div'][1];
-
-		// container
-		Tester\Assert::count(2, $text2Container);
-		Tester\Assert::count(1, $text2Container['@attributes']);
-		Tester\Assert::same('form-group row', $text2Container['@attributes']['class']);
-		Tester\Assert::count(2, $text2Container['div']);
-
-		// label container
-		Tester\Assert::count(2, $text2LabelContainer);
-		Tester\Assert::count(1, $text2LabelContainer['@attributes']);
-		Tester\Assert::same('col-md-3 text-md-right col-sm-12', $text2LabelContainer['@attributes']['class']);
-		Tester\Assert::same('text2', $text2LabelContainer['label']);
-
-		// input container
-		Tester\Assert::count(2, $text2InputContainer);
-		Tester\Assert::count(1, $text2InputContainer['@attributes']);
-		Tester\Assert::same('col-lg-6 col-md-9 col-sm-12', $text2InputContainer['@attributes']['class']);
-
-		$foo = (array) $text2InputContainer['div'];
-		Tester\Assert::count(2, $foo);
-		Tester\Assert::contains('text2 error', (string) $foo[1]);
-
-		$foo = (array) $foo[0];
-		Tester\Assert::count(1, $foo['@attributes']);
-		Tester\Assert::same('input-group', $foo['@attributes']['class']);
-		Tester\Assert::same(['right', 'addon'], $foo['span']);
-
-		$foo = (array) $foo['input'];
-		Tester\Assert::count(4, $foo['@attributes']);
-		Tester\Assert::same('text', $foo['@attributes']['type']);
-		Tester\Assert::same('text2', $foo['@attributes']['name']);
-		Tester\Assert::same('frm-form2-text2', $foo['@attributes']['id']);
-		Tester\Assert::same('is-invalid form-control', $foo['@attributes']['class']);
-
-
-		/**
-		 * upload1 field test
-		 */
-		$upload1Container = (array) $data[2];
-		$upload1LabelContainer = (array) $upload1Container['div'][0];
-		$upload1InputContainer = (array) $upload1Container['div'][1];
-
-		// container
-		Tester\Assert::count(2, $upload1Container);
-		Tester\Assert::count(1, $upload1Container['@attributes']);
-		Tester\Assert::same('form-group row', $upload1Container['@attributes']['class']);
-		Tester\Assert::count(2, $upload1Container['div']);
-
-		// label container
-		Tester\Assert::count(2, $upload1LabelContainer);
-		Tester\Assert::count(1, $upload1LabelContainer['@attributes']);
-		Tester\Assert::same('col-md-3 text-md-right col-sm-12', $upload1LabelContainer['@attributes']['class']);
-		Tester\Assert::same('upload1', $upload1LabelContainer['label']);
-
-		// input container
-		Tester\Assert::count(3, $upload1InputContainer);
-		Tester\Assert::count(1, $upload1InputContainer['@attributes']);
-		Tester\Assert::same('col-lg-6 col-md-9 col-sm-12', $upload1InputContainer['@attributes']['class']);
-		Tester\Assert::contains('upload1 error', (string) $upload1InputContainer['div']);
-
-		$foo = (array) $upload1InputContainer['input'];
-		Tester\Assert::count(4, $foo['@attributes']);
-		Tester\Assert::same('file', $foo['@attributes']['type']);
-		Tester\Assert::same('upload1', $foo['@attributes']['name']);
-		Tester\Assert::same('frm-form2-upload1', $foo['@attributes']['id']);
-		Tester\Assert::same('form-control-file', $foo['@attributes']['class']);
-	}
-
-
-	/**
-	 * @return void
-	 */
-	public function testThree(): void
-	{
-		$originalRenderer = new Nette\Forms\Rendering\DefaultFormRenderer;
-		$bootstrapRenderer = new AlesWita\FormRenderer\BootstrapV4Renderer;
-
-		Tester\Assert::true($this->arrayIntegrityCheck($originalRenderer->wrappers, $bootstrapRenderer->wrappers));
+		return $parent;
 	}
 
 
 	/**
 	 * @param array
-	 * @param array
-	 * @return bool
+	 * @return string
 	 */
-	private function arrayIntegrityCheck(array $arr1, array $arr2): bool
+	public function renderPairMulti(array $controls): string
 	{
-		foreach ($arr1 as $key => $value) {
-			if (!array_key_exists($key, $arr2)) {
-				return false;
+		foreach ($controls as $control) {
+			if ($control instanceof Nette\Forms\Controls\Button) {
+				if ($control->getControlPrototype()->getClass() === null || (is_array($control->getControlPrototype()->getClass()) && !Nette\Utils\Strings::contains(implode(' ', array_keys($control->getControlPrototype()->getClass())), 'btn btn-'))) {
+					$control->getControlPrototype()->addClass((empty($primary) ? 'btn btn-outline-primary' : 'btn btn-outline-secondary'));
+				}
+				$primary = true;
+			}
+		}
+
+		return parent::renderPairMulti($controls);
+	}
+
+
+	/**
+	 * @param Nette\Forms\IControl
+	 * @return Nette\Utils\Html
+	 */
+	public function renderLabel(Nette\Forms\IControl $control): Nette\Utils\Html
+	{
+		if ($control instanceof Nette\Forms\Controls\Checkbox) {
+			$control->getLabelPrototype()->addClass('form-check-label');
+
+		} elseif ($control instanceof Nette\Forms\Controls\RadioList) {
+			$control->getLabelPrototype()->addClass('form-check-label');
+
+		} else {
+			$control->getLabelPrototype()->addClass('col-form-label');
+		}
+
+		$parent = parent::renderLabel($control);
+		return $parent;
+	}
+
+
+	/**
+	 * @param Nette\Forms\IControl
+	 * @return Nette\Utils\Html
+	 */
+	public function renderControl(Nette\Forms\IControl $control): Nette\Utils\Html
+	{
+		if ($control instanceof Nette\Forms\Controls\Checkbox) {
+			$control->getControlPrototype()->addClass('form-check-input');
+
+		} elseif ($control instanceof Nette\Forms\Controls\RadioList) {
+			$control->getContainerPrototype()->setName('div')->addClass('form-check');
+			$control->getItemLabelPrototype()->addClass('form-check-label');
+			$control->getControlPrototype()->addClass('form-check-input');
+
+		} elseif ($control instanceof Nette\Forms\Controls\UploadControl) {
+			$control->getControlPrototype()->addClass('form-control-file');
+
+		} else {
+			if ($control->hasErrors()) {
+				$control->getControlPrototype()->addClass('is-invalid');
 			}
 
-			if (is_array($value)) {
-				if (!$this->arrayIntegrityCheck($value, $arr2[$key])) {
-					return false;
+			$control->getControlPrototype()->addClass('form-control');
+		}
+
+		$parent = parent::renderControl($control);
+
+		// addons
+		if ($control instanceof Nette\Forms\Controls\TextInput) {
+			$leftAddon = $control->getOption('left-addon');
+			$rightAddon = $control->getOption('right-addon');
+
+			if ($leftAddon !== null || $rightAddon !== null) {
+				$children = $parent->getChildren();
+				$parent->removeChildren();
+
+				$container = Nette\Utils\Html::el('div')->setClass('input-group');
+
+				if ($leftAddon !== null) {
+					if (is_array($leftAddon)) {
+						foreach ($leftAddon as $v) {
+							$container->insert(null, Nette\Utils\Html::el('span')->setClass('input-group-addon')->setText($v));
+						}
+					} else {
+						$container->insert(null, Nette\Utils\Html::el('span')->setClass('input-group-addon')->setText($leftAddon));
+					}
+				}
+
+				foreach ($children as $child) {
+					$foo = Nette\Utils\Strings::after($child, $control->getControlPart()->render());
+
+					if ($foo !== false) {
+						$container->insert(null, $control->getControlPart()->render());
+						$description = $foo;
+					} else {
+						$container->insert(null, $child);
+					}
+				}
+
+				if ($rightAddon !== null) {
+					if (is_array($rightAddon)) {
+						foreach ($rightAddon as $v) {
+							$container->insert(null, Nette\Utils\Html::el('span')->setClass('input-group-addon')->setText($v));
+						}
+					} else {
+						$container->insert(null, Nette\Utils\Html::el('span')->setClass('input-group-addon')->setText($rightAddon));
+					}
+				}
+
+				$parent->insert(null, $container);
+
+				if (!empty($description)) {
+					$parent->insert(null, $description);
 				}
 			}
 		}
 
-		return true;
+		return $parent;
 	}
 }
-
-
-$test = new BootstrapV4Test;
-$test->run();
