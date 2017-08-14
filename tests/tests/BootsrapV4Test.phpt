@@ -578,10 +578,6 @@ final class BootstrapV4Test extends Tester\TestCase
 				return false;
 			}
 
-			if (gettype($value) !== gettype($arr2[$key])) {
-				return false;
-			}
-
 			if (is_array($value)) {
 				if (!$this->arrayIntegrityCheck($value, $arr2[$key])) {
 					return false;
