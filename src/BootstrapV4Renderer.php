@@ -44,7 +44,7 @@ class BootstrapV4Renderer extends Nette\Forms\Rendering\DefaultFormRenderer
 			'.required' => null,
 			'.optional' => null,
 			'.odd' => null,
-			'.error' => 'has-danger',
+			'.error' => null,
 		],
 
 		'control' => [
@@ -77,6 +77,28 @@ class BootstrapV4Renderer extends Nette\Forms\Rendering\DefaultFormRenderer
 			'container' => null,
 		],
 	];
+
+
+	/**
+	 * @param Nette\Forms\IControl
+	 * @param bool
+	 * @return string
+	 */
+	public function renderErrors(Nette\Forms\IControl $control = null, $own = true)
+	{
+        if ($control instanceof Nette\Forms\Controls\Checkbox || $control instanceof Nette\Forms\Controls\RadioList || $control instanceof Nette\Forms\Controls\UploadControl) {
+			$temp = $this->wrappers['control']['errorcontainer'];
+            $this->wrappers['control']['errorcontainer'] = 'div class="invalid-feedback" style="display: block"';
+		}
+
+		$parent = parent::renderErrors($control, $own);
+
+        if ($control instanceof Nette\Forms\Controls\Checkbox || $control instanceof Nette\Forms\Controls\RadioList || $control instanceof Nette\Forms\Controls\UploadControl) {
+            $this->wrappers['control']['errorcontainer'] = $temp;
+		}
+
+		return $parent;
+	}
 
 
 	/**
@@ -134,10 +156,6 @@ class BootstrapV4Renderer extends Nette\Forms\Rendering\DefaultFormRenderer
 			$control->getControlPrototype()->addClass('form-check-input');
 
 		} elseif ($control instanceof Nette\Forms\Controls\UploadControl) {
-			if ($control->hasErrors()) {
-				$control->getControlPrototype()->addClass('form-control-danger');
-			}
-
 			$control->getControlPrototype()->addClass('form-control-file');
 
 		} else {

@@ -433,7 +433,7 @@ final class BootstrapV4Test extends Tester\TestCase
 		/**
 		 * field's test
 		 */
-		$data = $dom->find('div[class="form-group row has-danger"]');
+		$data = $dom->find('div[class="form-group row"]');
 
 		Tester\Assert::count(3, $data);
 
@@ -448,7 +448,7 @@ final class BootstrapV4Test extends Tester\TestCase
 		// container
 		Tester\Assert::count(2, $text1Container);
 		Tester\Assert::count(1, $text1Container['@attributes']);
-		Tester\Assert::same('form-group row has-danger', $text1Container['@attributes']['class']);
+		Tester\Assert::same('form-group row', $text1Container['@attributes']['class']);
 		Tester\Assert::count(2, $text1Container['div']);
 
 		// label container
@@ -489,7 +489,7 @@ final class BootstrapV4Test extends Tester\TestCase
 		// container
 		Tester\Assert::count(2, $text2Container);
 		Tester\Assert::count(1, $text2Container['@attributes']);
-		Tester\Assert::same('form-group row has-danger', $text2Container['@attributes']['class']);
+		Tester\Assert::same('form-group row', $text2Container['@attributes']['class']);
 		Tester\Assert::count(2, $text2Container['div']);
 
 		// label container
@@ -530,7 +530,7 @@ final class BootstrapV4Test extends Tester\TestCase
 		// container
 		Tester\Assert::count(2, $upload1Container);
 		Tester\Assert::count(1, $upload1Container['@attributes']);
-		Tester\Assert::same('form-group row has-danger', $upload1Container['@attributes']['class']);
+		Tester\Assert::same('form-group row', $upload1Container['@attributes']['class']);
 		Tester\Assert::count(2, $upload1Container['div']);
 
 		// label container
@@ -550,7 +550,7 @@ final class BootstrapV4Test extends Tester\TestCase
 		Tester\Assert::same('file', $foo['@attributes']['type']);
 		Tester\Assert::same('upload1', $foo['@attributes']['name']);
 		Tester\Assert::same('frm-form2-upload1', $foo['@attributes']['id']);
-		Tester\Assert::same('form-control-danger form-control-file', $foo['@attributes']['class']);
+		Tester\Assert::same('form-control-file', $foo['@attributes']['class']);
 	}
 
 
@@ -578,10 +578,9 @@ final class BootstrapV4Test extends Tester\TestCase
 				return false;
 			}
 
-			// dont need (can set as string or Nette\Utils\Html object)
-			/*if (gettype($value) !== gettype($arr2[$key])) {
+			if (gettype($value) !== gettype($arr2[$key])) {
 				return false;
-			}*/
+			}
 
 			if (is_array($value)) {
 				if (!$this->arrayIntegrityCheck($value, $arr2[$key])) {
