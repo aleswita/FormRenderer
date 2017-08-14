@@ -543,7 +543,7 @@ final class BootstrapV4Test extends Tester\TestCase
 		Tester\Assert::count(3, $upload1InputContainer);
 		Tester\Assert::count(1, $upload1InputContainer['@attributes']);
 		Tester\Assert::same('col-lg-6 col-md-9 col-sm-12', $upload1InputContainer['@attributes']['class']);
-		Tester\Assert::contains('upload1 error', (string) $upload1InputContainer['div'];
+		Tester\Assert::contains('upload1 error', (string) $upload1InputContainer['div']);
 
 		$foo = (array) $upload1InputContainer['input'];
 		Tester\Assert::count(4, $foo['@attributes']);
