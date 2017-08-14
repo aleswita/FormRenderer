@@ -123,13 +123,13 @@ final class BootstrapV4Test extends Tester\TestCase
 		// label container
 		Tester\Assert::count(2, $text1LabelContainer);
 		Tester\Assert::count(1, $text1LabelContainer['@attributes']);
-		Tester\Assert::same('col-3 text-right', $text1LabelContainer['@attributes']['class']);
+		Tester\Assert::same('col-md-3 text-md-right col-sm-12', $text1LabelContainer['@attributes']['class']);
 		Tester\Assert::same('text1', $text1LabelContainer['label']);
 
 		// input container
 		Tester\Assert::count(3, $text1InputContainer);
 		Tester\Assert::count(1, $text1InputContainer['@attributes']);
-		Tester\Assert::same('col-6', $text1InputContainer['@attributes']['class']);
+		Tester\Assert::same('col-lg-6 col-md-9 col-sm-12', $text1InputContainer['@attributes']['class']);
 		Tester\Assert::same('description1', $text1InputContainer['small']);
 
 		$foo = (array) $text1InputContainer['div'];
@@ -163,13 +163,13 @@ final class BootstrapV4Test extends Tester\TestCase
 		// label container
 		Tester\Assert::count(2, $text2LabelContainer);
 		Tester\Assert::count(1, $text2LabelContainer['@attributes']);
-		Tester\Assert::same('col-3 text-right', $text2LabelContainer['@attributes']['class']);
+		Tester\Assert::same('col-md-3 text-md-right col-sm-12', $text2LabelContainer['@attributes']['class']);
 		Tester\Assert::same('text2', $text2LabelContainer['label']);
 
 		// input container
 		Tester\Assert::count(2, $text2InputContainer);
 		Tester\Assert::count(1, $text2InputContainer['@attributes']);
-		Tester\Assert::same('col-6', $text2InputContainer['@attributes']['class']);
+		Tester\Assert::same('col-lg-6 col-md-9 col-sm-12', $text2InputContainer['@attributes']['class']);
 
 		$foo = (array) $text2InputContainer['div'];
 		Tester\Assert::count(3, $foo);
@@ -202,12 +202,12 @@ final class BootstrapV4Test extends Tester\TestCase
 		// label container
 		Tester\Assert::count(2, $select1LabelContainer);
 		Tester\Assert::count(1, $select1LabelContainer['@attributes']);
-		Tester\Assert::same('col-3 text-right', $select1LabelContainer['@attributes']['class']);
+		Tester\Assert::same('col-md-3 text-md-right col-sm-12', $select1LabelContainer['@attributes']['class']);
 		Tester\Assert::same('select1', $select1LabelContainer['label']);
 
 		// input container
 		Tester\Assert::count(2, $select1InputContainer);
-		Tester\Assert::same('col-6', $select1InputContainer['@attributes']['class']);
+		Tester\Assert::same('col-lg-6 col-md-9 col-sm-12', $select1InputContainer['@attributes']['class']);
 
 		$foo = (array) $select1InputContainer['select'];
 
@@ -237,13 +237,13 @@ final class BootstrapV4Test extends Tester\TestCase
 		// label container
 		Tester\Assert::count(2, $radio1LabelContainer);
 		Tester\Assert::count(1, $radio1LabelContainer['@attributes']);
-		Tester\Assert::same('col-3 text-right', $radio1LabelContainer['@attributes']['class']);
+		Tester\Assert::same('col-md-3 text-md-right col-sm-12', $radio1LabelContainer['@attributes']['class']);
 		Tester\Assert::same('radio1', $radio1LabelContainer['label']);
 
 		// input container
 		Tester\Assert::count(2, $radio1InputContainer);
 		Tester\Assert::count(1, $radio1InputContainer['@attributes']);
-		Tester\Assert::same('col-6', $radio1InputContainer['@attributes']['class']);
+		Tester\Assert::same('col-lg-6 col-md-9 col-sm-12', $radio1InputContainer['@attributes']['class']);
 
 		$foo = (array) $radio1InputContainer['div'];
 		Tester\Assert::count(1, $foo['@attributes']);
@@ -294,12 +294,12 @@ final class BootstrapV4Test extends Tester\TestCase
 		// label container
 		Tester\Assert::count(1, $checkbox1LabelContainer);
 		Tester\Assert::count(1, $checkbox1LabelContainer['@attributes']);
-		Tester\Assert::same('col-3 text-right', $checkbox1LabelContainer['@attributes']['class']);
+		Tester\Assert::same('col-md-3 text-md-right col-sm-12', $checkbox1LabelContainer['@attributes']['class']);
 
 		// input container
 		Tester\Assert::count(2, $checkbox1InputContainer);
 		Tester\Assert::count(1, $checkbox1InputContainer['@attributes']);
-		Tester\Assert::same('col-6', $checkbox1InputContainer['@attributes']['class']);
+		Tester\Assert::same('col-lg-6 col-md-9 col-sm-12', $checkbox1InputContainer['@attributes']['class']);
 
 		$foo = (array) $checkbox1InputContainer['label'];
 		Tester\Assert::count(2, $foo['@attributes']);
@@ -331,13 +331,13 @@ final class BootstrapV4Test extends Tester\TestCase
 		// label container
 		Tester\Assert::count(2, $upload1LabelContainer);
 		Tester\Assert::count(1, $upload1LabelContainer['@attributes']);
-		Tester\Assert::same('col-3 text-right', $upload1LabelContainer['@attributes']['class']);
+		Tester\Assert::same('col-md-3 text-md-right col-sm-12', $upload1LabelContainer['@attributes']['class']);
 		Tester\Assert::same('upload1', $upload1LabelContainer['label']);
 
 		// input container
 		Tester\Assert::count(2, $upload1InputContainer);
 		Tester\Assert::count(1, $upload1InputContainer['@attributes']);
-		Tester\Assert::same('col-6', $upload1InputContainer['@attributes']['class']);
+		Tester\Assert::same('col-lg-6 col-md-9 col-sm-12', $upload1InputContainer['@attributes']['class']);
 
 		$foo = (array) $upload1InputContainer['input'];
 		Tester\Assert::count(4, $foo['@attributes']);
@@ -363,12 +363,12 @@ final class BootstrapV4Test extends Tester\TestCase
 		// label container
 		Tester\Assert::count(1, $buttonsLabelContainer);
 		Tester\Assert::count(1, $buttonsLabelContainer['@attributes']);
-		Tester\Assert::same('col-3 text-right', $buttonsLabelContainer['@attributes']['class']);
+		Tester\Assert::same('col-md-3 text-md-right col-sm-12', $buttonsLabelContainer['@attributes']['class']);
 
 		// input container
 		Tester\Assert::count(3, $buttonsInputContainer);
 		Tester\Assert::count(1, $buttonsInputContainer['@attributes']);
-		Tester\Assert::same('col-6', $buttonsInputContainer['@attributes']['class']);
+		Tester\Assert::same('col-lg-6 col-md-9 col-sm-12', $buttonsInputContainer['@attributes']['class']);
 
 		$foo = (array) $buttonsInputContainer['input'];
 		Tester\Assert::count(4, $foo['@attributes']);
@@ -454,13 +454,13 @@ final class BootstrapV4Test extends Tester\TestCase
 		// label container
 		Tester\Assert::count(2, $text1LabelContainer);
 		Tester\Assert::count(1, $text1LabelContainer['@attributes']);
-		Tester\Assert::same('col-3 text-right', $text1LabelContainer['@attributes']['class']);
+		Tester\Assert::same('col-md-3 text-md-right col-sm-12', $text1LabelContainer['@attributes']['class']);
 		Tester\Assert::same('text1', $text1LabelContainer['label']);
 
 		// input container
 		Tester\Assert::count(2, $text1InputContainer);
 		Tester\Assert::count(1, $text1InputContainer['@attributes']);
-		Tester\Assert::same('col-6', $text1InputContainer['@attributes']['class']);
+		Tester\Assert::same('col-lg-6 col-md-9 col-sm-12', $text1InputContainer['@attributes']['class']);
 
 		$foo = (array) $text1InputContainer['div'];
 		Tester\Assert::count(2, $foo);
@@ -476,7 +476,7 @@ final class BootstrapV4Test extends Tester\TestCase
 		Tester\Assert::same('text', $foo['@attributes']['type']);
 		Tester\Assert::same('text1', $foo['@attributes']['name']);
 		Tester\Assert::same('frm-form2-text1', $foo['@attributes']['id']);
-		Tester\Assert::same('form-control-danger form-control', $foo['@attributes']['class']);
+		Tester\Assert::same('is-invalid form-control', $foo['@attributes']['class']);
 
 
 		/**
@@ -495,13 +495,13 @@ final class BootstrapV4Test extends Tester\TestCase
 		// label container
 		Tester\Assert::count(2, $text2LabelContainer);
 		Tester\Assert::count(1, $text2LabelContainer['@attributes']);
-		Tester\Assert::same('col-3 text-right', $text2LabelContainer['@attributes']['class']);
+		Tester\Assert::same('col-md-3 text-md-right col-sm-12', $text2LabelContainer['@attributes']['class']);
 		Tester\Assert::same('text2', $text2LabelContainer['label']);
 
 		// input container
 		Tester\Assert::count(2, $text2InputContainer);
 		Tester\Assert::count(1, $text2InputContainer['@attributes']);
-		Tester\Assert::same('col-6', $text2InputContainer['@attributes']['class']);
+		Tester\Assert::same('col-lg-6 col-md-9 col-sm-12', $text2InputContainer['@attributes']['class']);
 
 		$foo = (array) $text2InputContainer['div'];
 		Tester\Assert::count(2, $foo);
@@ -517,7 +517,7 @@ final class BootstrapV4Test extends Tester\TestCase
 		Tester\Assert::same('text', $foo['@attributes']['type']);
 		Tester\Assert::same('text2', $foo['@attributes']['name']);
 		Tester\Assert::same('frm-form2-text2', $foo['@attributes']['id']);
-		Tester\Assert::same('form-control-danger form-control', $foo['@attributes']['class']);
+		Tester\Assert::same('is-invalid form-control', $foo['@attributes']['class']);
 
 
 		/**
@@ -536,13 +536,13 @@ final class BootstrapV4Test extends Tester\TestCase
 		// label container
 		Tester\Assert::count(2, $upload1LabelContainer);
 		Tester\Assert::count(1, $upload1LabelContainer['@attributes']);
-		Tester\Assert::same('col-3 text-right', $upload1LabelContainer['@attributes']['class']);
+		Tester\Assert::same('col-md-3 text-md-right col-sm-12', $upload1LabelContainer['@attributes']['class']);
 		Tester\Assert::same('upload1', $upload1LabelContainer['label']);
 
 		// input container
 		Tester\Assert::count(3, $upload1InputContainer);
 		Tester\Assert::count(1, $upload1InputContainer['@attributes']);
-		Tester\Assert::same('col-6', $upload1InputContainer['@attributes']['class']);
+		Tester\Assert::same('col-lg-6 col-md-9 col-sm-12', $upload1InputContainer['@attributes']['class']);
 		Tester\Assert::contains('upload1 error', (string) $upload1InputContainer['div']);
 
 		$foo = (array) $upload1InputContainer['input'];

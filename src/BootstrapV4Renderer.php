@@ -48,12 +48,12 @@ class BootstrapV4Renderer extends Nette\Forms\Rendering\DefaultFormRenderer
 		],
 
 		'control' => [
-			'container' => 'div class="col-6"',
+			'container' => 'div class="col-lg-6 col-md-9 col-sm-12"',
 			'.odd' => null,
 
 			'description' => 'small class="form-text text-muted"',
 			'requiredsuffix' => null,
-			'errorcontainer' => 'div class="form-control-feedback"',
+			'errorcontainer' => 'div class="invalid-feedback"',
 			'erroritem' => null,
 
 			'.required' => null,
@@ -68,7 +68,7 @@ class BootstrapV4Renderer extends Nette\Forms\Rendering\DefaultFormRenderer
 		],
 
 		'label' => [
-			'container' => 'div class="col-3 text-right"',
+			'container' => 'div class="col-md-3 text-md-right col-sm-12"',
 			'suffix' => null,
 			'requiredsuffix' => '*',
 		],
@@ -142,7 +142,7 @@ class BootstrapV4Renderer extends Nette\Forms\Rendering\DefaultFormRenderer
 
 		} else {
 			if ($control->hasErrors()) {
-				$control->getControlPrototype()->addClass('form-control-danger');
+				$control->getControlPrototype()->addClass('is-invalid');
 			}
 
 			$control->getControlPrototype()->addClass('form-control');
