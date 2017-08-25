@@ -8,7 +8,7 @@ Form Renderer for [Nette Framework](https://nette.org) and [Bootstrap](http://ge
 The best way to install AlesWita/FormRenderer is using [Composer](http://getcomposer.org/):
 ```sh
 # For PHP 7.1, Nette Framework 2.4/3.0 and Bootstrap
-$ composer require aleswita/formrenderer:~1.0
+$ composer require aleswita/formrenderer:~1.3
 ```
 
 
@@ -56,7 +56,7 @@ final class MyForm extends Nette\Application\UI\Control
 
 
 ## Features
-**BootstrapV4Renderer** convert you forms to [Bootstrap V4](http://v4-alpha.getbootstrap.com/) design.
+**BootstrapV4Renderer** convert your forms to [Bootstrap V4](https://getbootstrap.com/) design.
 
 **Renderer support:**
 - form errors
@@ -72,9 +72,7 @@ $form->addText('text1', 'Label:')
 $form->addText('text2', 'Label:')
 	->addOption('right-addon', ['addon', 'text']);
 ```
-- **Link Control** for forms
-
-**Link control** it's a form component, that can input link to your form as a button, look at the example:
+- **Link Control** for forms, it's a form component, that can input link to your form as a button, look at the example:
 ```php
 /**
  * @return Nette\Application\UI\Form
