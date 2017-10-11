@@ -56,11 +56,11 @@ final class BasePresenter extends Nette\Application\UI\Presenter
 
 		$form->addSubmit('submit1', 'submit1');
 
-		$form->addComponent(new AlesWita\FormRenderer\Controls\Link('submit2'), 'submit2');
+		/*$form->addComponent(new AlesWita\FormRenderer\Controls\Link('submit2'), 'submit2');
 
 		$form['submit2']->setDisabled()
 			->getControlPrototype()
-			->setHref($this->link('this'));
+			->setHref($this->link('this'));*/
 
 		return $form;
 	}

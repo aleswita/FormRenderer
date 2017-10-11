@@ -366,7 +366,7 @@ final class BootstrapV4Test extends Tester\TestCase
 		Tester\Assert::same('col-md-3 text-md-right col-sm-12', $buttonsLabelContainer['@attributes']['class']);
 
 		// input container
-		Tester\Assert::count(3, $buttonsInputContainer);
+		Tester\Assert::count(2, $buttonsInputContainer);
 		Tester\Assert::count(1, $buttonsInputContainer['@attributes']);
 		Tester\Assert::same('col-lg-6 col-md-9 col-sm-12', $buttonsInputContainer['@attributes']['class']);
 
@@ -376,18 +376,6 @@ final class BootstrapV4Test extends Tester\TestCase
 		Tester\Assert::same('submit1', $foo['@attributes']['name']);
 		Tester\Assert::same('btn btn-outline-primary', $foo['@attributes']['class']);
 		Tester\Assert::same('submit1', $foo['@attributes']['value']);
-
-		Tester\Assert::same('submit2', $buttonsInputContainer['a']);
-		Tester\Assert::false($presenter['form1']['submit2']->isFilled());
-
-		$data = $dom->find('a');
-		Tester\Assert::count(1, $data);
-
-		$foo = (array) $data[0];
-		Tester\Assert::count(2, $foo['@attributes']);
-		Tester\Assert::same('/base/one', $foo['@attributes']['href']);
-		Tester\Assert::same('btn btn-outline-secondary disabled', $foo['@attributes']['class']);
-		Tester\Assert::same('submit2', $foo[0]);
 	}
 
 
