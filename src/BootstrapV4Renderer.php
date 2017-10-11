@@ -53,7 +53,7 @@ class BootstrapV4Renderer extends Nette\Forms\Rendering\DefaultFormRenderer
 
 			'description' => 'small class="form-text text-muted"',
 			'requiredsuffix' => null,
-			'errorcontainer' => 'div class="invalid-feedback d-block"',
+			'errorcontainer' => 'div class="invalid-feedback"',
 			'erroritem' => null,
 
 			'.required' => null,
@@ -77,6 +77,28 @@ class BootstrapV4Renderer extends Nette\Forms\Rendering\DefaultFormRenderer
 			'container' => null,
 		],
 	];
+
+
+	/**
+	 * @param Nette\Forms\IControl
+	 * @param bool
+	 * @return string
+	 */
+	public function renderErrors(Nette\Forms\IControl $control = null, $own = true)
+	{
+		if ($control instanceof Nette\Forms\Controls\Checkbox || $control instanceof Nette\Forms\Controls\RadioList || $control instanceof Nette\Forms\Controls\UploadControl) {
+			$temp = $this->wrappers['control']['errorcontainer'];
+			$this->wrappers['control']['errorcontainer'] = $this->wrappers['control']['errorcontainer'] . ' style="display: block"';
+		}
+
+		$parent = parent::renderErrors($control, $own);
+
+		if ($control instanceof Nette\Forms\Controls\Checkbox || $control instanceof Nette\Forms\Controls\RadioList || $control instanceof Nette\Forms\Controls\UploadControl) {
+			$this->wrappers['control']['errorcontainer'] = $temp;
+		}
+
+		return $parent;
+	}
 
 
 	/**
@@ -147,7 +169,7 @@ class BootstrapV4Renderer extends Nette\Forms\Rendering\DefaultFormRenderer
 		$parent = parent::renderControl($control);
 
 		// addons
-		if ($control instanceof Nette\Forms\Controls\TextInput || $control instanceof Nette\Forms\Controls\SelectBox) {
+		if ($control instanceof Nette\Forms\Controls\TextInput) {
 			$leftAddon = $control->getOption('left-addon');
 			$rightAddon = $control->getOption('right-addon');
 
