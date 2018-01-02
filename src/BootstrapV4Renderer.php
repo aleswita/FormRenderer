@@ -180,13 +180,17 @@ class BootstrapV4Renderer extends Nette\Forms\Rendering\DefaultFormRenderer
 				$container = Nette\Utils\Html::el('div')->setClass('input-group');
 
 				if ($leftAddon !== null) {
-					if (is_array($leftAddon)) {
-						foreach ($leftAddon as $v) {
-							$container->insert(null, Nette\Utils\Html::el('span')->setClass('input-group-addon')->setText($v));
-						}
-					} else {
-						$container->insert(null, Nette\Utils\Html::el('span')->setClass('input-group-addon')->setText($leftAddon));
+					if (!is_array($leftAddon)) {
+						$leftAddon = [$leftAddon];
 					}
+
+					$div = Nette\Utils\Html::el('div')->setClass('input-group-prepend');
+
+					foreach ($leftAddon as $v) {
+						$div->insert(null, Nette\Utils\Html::el('span')->setClass('input-group-text')->setText($v));
+					}
+
+					$container->insert(null, $div);
 				}
 
 				foreach ($children as $child) {
@@ -195,20 +199,26 @@ class BootstrapV4Renderer extends Nette\Forms\Rendering\DefaultFormRenderer
 					if ($foo !== false) {
 						$container->insert(null, $control->getControlPart()->render());
 						$description = $foo;
+
 					} else {
 						$container->insert(null, $child);
 					}
 				}
 
 				if ($rightAddon !== null) {
-					if (is_array($rightAddon)) {
-						foreach ($rightAddon as $v) {
-							$container->insert(null, Nette\Utils\Html::el('span')->setClass('input-group-addon')->setText($v));
-						}
-					} else {
-						$container->insert(null, Nette\Utils\Html::el('span')->setClass('input-group-addon')->setText($rightAddon));
+					if (!is_array($rightAddon)) {
+						$rightAddon = [$rightAddon];
 					}
+
+					$div = Nette\Utils\Html::el('div')->setClass('input-group-append');
+
+					foreach ($rightAddon as $v) {
+						$div->insert(null, Nette\Utils\Html::el('span')->setClass('input-group-text')->setText($v));
+					}
+
+					$container->insert(null, $div);
 				}
+
 
 				$parent->insert(null, $container);
 
