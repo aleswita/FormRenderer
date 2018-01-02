@@ -136,15 +136,19 @@ final class BootstrapV4Test extends Tester\TestCase
 		Tester\Assert::count(3, $foo);
 		Tester\Assert::count(1, $foo['@attributes']);
 		Tester\Assert::same('input-group', $foo['@attributes']['class']);
-		Tester\Assert::same('left-addon', $foo['span']);
 
+		$foo1 = (array) $foo['div'];
+		Tester\Assert::count(2, $foo1);
+		Tester\Assert::count(1, $foo1['@attributes']);
+		Tester\Assert::same('input-group-prepend', $foo1['@attributes']['class']);
+		Tester\Assert::same('left-addon', $foo1['span']);
 
-		$foo = (array) $foo['input'];
-		Tester\Assert::count(4, $foo['@attributes']);
-		Tester\Assert::same('text', $foo['@attributes']['type']);
-		Tester\Assert::same('text1', $foo['@attributes']['name']);
-		Tester\Assert::same('frm-form1-text1', $foo['@attributes']['id']);
-		Tester\Assert::same('form-control', $foo['@attributes']['class']);
+		$foo2 = (array) $foo['input'];
+		Tester\Assert::count(4, $foo2['@attributes']);
+		Tester\Assert::same('text', $foo2['@attributes']['type']);
+		Tester\Assert::same('text1', $foo2['@attributes']['name']);
+		Tester\Assert::same('frm-form1-text1', $foo2['@attributes']['id']);
+		Tester\Assert::same('form-control', $foo2['@attributes']['class']);
 
 
 		/**
@@ -175,15 +179,20 @@ final class BootstrapV4Test extends Tester\TestCase
 		Tester\Assert::count(3, $foo);
 		Tester\Assert::count(1, $foo['@attributes']);
 		Tester\Assert::same('input-group', $foo['@attributes']['class']);
-		Tester\Assert::same('right-addon', $foo['span']);
 
-		$foo = (array) $foo['input'];
-		Tester\Assert::count(5, $foo['@attributes']);
-		Tester\Assert::same('text', $foo['@attributes']['type']);
-		Tester\Assert::same('text2', $foo['@attributes']['name']);
-		Tester\Assert::same('frm-form1-text2', $foo['@attributes']['id']);
-		Tester\Assert::same('form-control', $foo['@attributes']['class']);
-		Tester\Assert::same('disabled', $foo['@attributes']['disabled']);
+		$foo1 = (array) $foo['div'];
+		Tester\Assert::count(2, $foo1);
+		Tester\Assert::count(1, $foo1['@attributes']);
+		Tester\Assert::same('input-group-append', $foo1['@attributes']['class']);
+		Tester\Assert::same('right-addon', $foo1['span']);
+
+		$foo2 = (array) $foo['input'];
+		Tester\Assert::count(5, $foo2['@attributes']);
+		Tester\Assert::same('text', $foo2['@attributes']['type']);
+		Tester\Assert::same('text2', $foo2['@attributes']['name']);
+		Tester\Assert::same('frm-form1-text2', $foo2['@attributes']['id']);
+		Tester\Assert::same('form-control', $foo2['@attributes']['class']);
+		Tester\Assert::same('disabled', $foo2['@attributes']['disabled']);
 
 
 		/**
@@ -457,14 +466,19 @@ final class BootstrapV4Test extends Tester\TestCase
 		$foo = (array) $foo[0];
 		Tester\Assert::count(1, $foo['@attributes']);
 		Tester\Assert::same('input-group', $foo['@attributes']['class']);
-		Tester\Assert::same(['left', 'addon'], $foo['span']);
 
-		$foo = (array) $foo['input'];
-		Tester\Assert::count(4, $foo['@attributes']);
-		Tester\Assert::same('text', $foo['@attributes']['type']);
-		Tester\Assert::same('text1', $foo['@attributes']['name']);
-		Tester\Assert::same('frm-form2-text1', $foo['@attributes']['id']);
-		Tester\Assert::same('is-invalid form-control', $foo['@attributes']['class']);
+		$foo1 = (array) $foo['div'];
+		Tester\Assert::count(2, $foo1);
+		Tester\Assert::count(1, $foo1['@attributes']);
+		Tester\Assert::same('input-group-prepend', $foo1['@attributes']['class']);
+		Tester\Assert::same(['left', 'addon'], $foo1['span']);
+
+		$foo2 = (array) $foo['input'];
+		Tester\Assert::count(4, $foo2['@attributes']);
+		Tester\Assert::same('text', $foo2['@attributes']['type']);
+		Tester\Assert::same('text1', $foo2['@attributes']['name']);
+		Tester\Assert::same('frm-form2-text1', $foo2['@attributes']['id']);
+		Tester\Assert::same('is-invalid form-control', $foo2['@attributes']['class']);
 
 
 		/**
@@ -498,14 +512,19 @@ final class BootstrapV4Test extends Tester\TestCase
 		$foo = (array) $foo[0];
 		Tester\Assert::count(1, $foo['@attributes']);
 		Tester\Assert::same('input-group', $foo['@attributes']['class']);
-		Tester\Assert::same(['right', 'addon'], $foo['span']);
 
-		$foo = (array) $foo['input'];
-		Tester\Assert::count(4, $foo['@attributes']);
-		Tester\Assert::same('text', $foo['@attributes']['type']);
-		Tester\Assert::same('text2', $foo['@attributes']['name']);
-		Tester\Assert::same('frm-form2-text2', $foo['@attributes']['id']);
-		Tester\Assert::same('is-invalid form-control', $foo['@attributes']['class']);
+		$foo1 = (array) $foo['div'];
+		Tester\Assert::count(2, $foo1);
+		Tester\Assert::count(1, $foo1['@attributes']);
+		Tester\Assert::same('input-group-append', $foo1['@attributes']['class']);
+		Tester\Assert::same(['right', 'addon'], $foo1['span']);
+
+		$foo2 = (array) $foo['input'];
+		Tester\Assert::count(4, $foo2['@attributes']);
+		Tester\Assert::same('text', $foo2['@attributes']['type']);
+		Tester\Assert::same('text2', $foo2['@attributes']['name']);
+		Tester\Assert::same('frm-form2-text2', $foo2['@attributes']['id']);
+		Tester\Assert::same('is-invalid form-control', $foo2['@attributes']['class']);
 
 
 		/**
