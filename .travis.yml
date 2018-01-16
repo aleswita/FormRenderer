@@ -26,7 +26,7 @@ jobs:
             install:
                 - travis_retry composer create-project nette/code-checker temp/code-checker --no-interaction --no-progress
                 - travis_retry composer create-project nette/coding-standard temp/coding-standard --no-interaction --no-progress
-                - travis_retry composer create-project phpstan/phpstan-shim temp/phpstan --no-progress
+                - travis_retry composer create-project phpstan/phpstan-shim temp/phpstan --no-interaction --no-progress
 
             script:
                 - php temp/code-checker/src/code-checker.php --short-arrays --strict-types
