@@ -31,11 +31,11 @@ jobs:
             script:
                 - php temp/code-checker/src/code-checker.php --short-arrays --strict-types
                 - php temp/coding-standard/ecs check src tests --config temp/coding-standard/coding-standard-php71.neon
-                - php temp/phpstan/phpstan.phar analyse -l 7 -c phpstan.neon src
+                - php temp/phpstan/phpstan.phar analyse --autoload-file vendor/autoload.php -l 7 -c phpstan.neon src
 
         -   stage: Code Coverage
             script:
-                - vendor/bin/tester -p phpdbg tests -s --coverage ./coverage.xml --coverage-src ./src
+                - vendor/bin/tester -p phpdbg tests -s --coverage ./coverage.xml --coverage-src src
 
             after_script:
                 - wget https://github.com/satooshi/php-coveralls/releases/download/v1.0.1/coveralls.phar
