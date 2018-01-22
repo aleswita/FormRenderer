@@ -21,17 +21,22 @@ jobs:
             install:
                     - travis_retry composer update --no-interaction --no-progress --prefer-lowest --prefer-stable
 
+        -   stage: PHPStan
+            install:
+                - travis_retry composer create-project phpstan/phpstan-shim temp/phpstan --no-progress
+
+            script:
+                - php temp/phpstan/phpstan.phar analyse --autoload-file vendor/autoload.php --level 7 --configuration phpstan.neon src
+
         -   stage: Code Standard Checker
             php: 7.1
             install:
                 - travis_retry composer create-project nette/code-checker temp/code-checker --no-interaction --no-progress
                 - travis_retry composer create-project nette/coding-standard temp/coding-standard --no-interaction --no-progress
-                - composer require --dev --no-update phpstan/phpstan-shim:^0.9
 
             script:
                 - php temp/code-checker/src/code-checker.php --short-arrays --strict-types
                 - php temp/coding-standard/ecs check src tests --config temp/coding-standard/coding-standard-php71.neon
-                - php vendor/phpstan/phpstan-shim/phpstan.phar analyse --no-progress -l 7 -c phpstan.neon src
 
         -   stage: Code Coverage
             script:
@@ -42,6 +47,7 @@ jobs:
                 - php coveralls.phar --verbose --config tests/.coveralls.yml
 
     allow_failures:
+        - stage: PHPStan
         - stage: Code Standard Checker
         - stage: Code Coverage
 
