@@ -26,7 +26,7 @@ jobs:
                 - travis_retry composer create-project phpstan/phpstan-shim temp/phpstan --no-progress
 
             script:
-                - php temp/phpstan/phpstan.phar analyse --autoload-file vendor/autoload.php --level 7 --configuration phpstan.neon src
+                - php temp/phpstan/phpstan.phar analyse --autoload-file ./../vendor/autoload.php --level 7 --configuration phpstan.neon src
 
         -   stage: Code Standard Checker
             php: 7.1
