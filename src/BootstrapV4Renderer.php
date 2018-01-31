@@ -80,8 +80,8 @@ class BootstrapV4Renderer extends Nette\Forms\Rendering\DefaultFormRenderer
 
 
 	/**
-	 * @param Nette\Forms\IControl
-	 * @param bool
+	 * @param Nette\Forms\IControl $control
+	 * @param bool $own
 	 * @return string
 	 */
 	public function renderErrors(Nette\Forms\IControl $control = null, $own = true)
@@ -102,16 +102,17 @@ class BootstrapV4Renderer extends Nette\Forms\Rendering\DefaultFormRenderer
 
 
 	/**
-	 * @param array
+	 * @param array $controls
 	 * @return string
 	 */
 	public function renderPairMulti(array $controls): string
 	{
 		foreach ($controls as $control) {
 			if ($control instanceof Nette\Forms\Controls\Button) {
-				if ($control->getControlPrototype()->getClass() === null || (is_array($control->getControlPrototype()->getClass()) && !Nette\Utils\Strings::contains(implode(' ', array_keys($control->getControlPrototype()->getClass())), 'btn btn-'))) {
-					$control->getControlPrototype()->addClass((empty($primary) ? 'btn btn-outline-primary' : 'btn btn-outline-secondary'));
+				if ($control->controlPrototype->class === null || (is_array($control->controlPrototype->class) && !Nette\Utils\Strings::contains(implode(' ', array_keys($control->controlPrototype->class)), 'btn btn-'))) {
+					$control->controlPrototype->addClass((empty($primary) ? 'btn btn-outline-primary' : 'btn btn-outline-secondary'));
 				}
+
 				$primary = true;
 			}
 		}
@@ -121,19 +122,19 @@ class BootstrapV4Renderer extends Nette\Forms\Rendering\DefaultFormRenderer
 
 
 	/**
-	 * @param Nette\Forms\IControl
+	 * @param Nette\Forms\IControl $control
 	 * @return Nette\Utils\Html
 	 */
 	public function renderLabel(Nette\Forms\IControl $control): Nette\Utils\Html
 	{
-		if ($control instanceof Nette\Forms\Controls\Checkbox) {
-			$control->getLabelPrototype()->addClass('form-check-label');
+		if ($control instanceof Nette\Forms\Controls\Checkbox || $control instanceof Nette\Forms\Controls\CheckboxList) {
+			$control->labelPrototype->addClass('form-check-label');
 
 		} elseif ($control instanceof Nette\Forms\Controls\RadioList) {
-			$control->getLabelPrototype()->addClass('form-check-label');
+			$control->labelPrototype->addClass('form-check-label');
 
 		} else {
-			$control->getLabelPrototype()->addClass('col-form-label');
+			$control->labelPrototype->addClass('col-form-label');
 		}
 
 		$parent = parent::renderLabel($control);
@@ -142,28 +143,32 @@ class BootstrapV4Renderer extends Nette\Forms\Rendering\DefaultFormRenderer
 
 
 	/**
-	 * @param Nette\Forms\IControl
+	 * @param Nette\Forms\IControl $control
 	 * @return Nette\Utils\Html
 	 */
 	public function renderControl(Nette\Forms\IControl $control): Nette\Utils\Html
 	{
-		if ($control instanceof Nette\Forms\Controls\Checkbox) {
-			$control->getControlPrototype()->addClass('form-check-input');
+		if ($control instanceof Nette\Forms\Controls\Checkbox || $control instanceof Nette\Forms\Controls\CheckboxList) {
+			$control->controlPrototype->addClass('form-check-input');
+
+			if ($control instanceof Nette\Forms\Controls\CheckboxList) {
+				$control->separatorPrototype->setName('div')->addClass('form-check form-check-inline');
+			}
 
 		} elseif ($control instanceof Nette\Forms\Controls\RadioList) {
-			$control->getContainerPrototype()->setName('div')->addClass('form-check');
-			$control->getItemLabelPrototype()->addClass('form-check-label');
-			$control->getControlPrototype()->addClass('form-check-input');
+			$control->containerPrototype->setName('div')->addClass('form-check');
+			$control->itemLabelPrototype->addClass('form-check-label');
+			$control->controlPrototype->addClass('form-check-input');
 
 		} elseif ($control instanceof Nette\Forms\Controls\UploadControl) {
-			$control->getControlPrototype()->addClass('form-control-file');
+			$control->controlPrototype->addClass('form-control-file');
 
 		} else {
 			if ($control->hasErrors()) {
-				$control->getControlPrototype()->addClass('is-invalid');
+				$control->controlPrototype->addClass('is-invalid');
 			}
 
-			$control->getControlPrototype()->addClass('form-control');
+			$control->controlPrototype->addClass('form-control');
 		}
 
 		$parent = parent::renderControl($control);
