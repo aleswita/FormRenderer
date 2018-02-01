@@ -1,2 +1,3 @@
 parameters:
-		- %rootDir%/../../../../src/*
+	autoload_directories:
+		- %rootDir%/../../../../src
