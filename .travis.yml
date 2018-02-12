@@ -6,7 +6,6 @@ php:
 
 install:
     - travis_retry composer install --no-interaction --no-progress
-    - if [ $TRAVIS_PHP_VERSION == "7.2" ]; then travis_retry composer require nette/http:~2.4.7 --no-interaction --no-progress; fi # nette/http 2.4.7 are compatible with PHP 7.2
 
 script:
     - vendor/bin/tester tests -s
