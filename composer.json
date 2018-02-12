@@ -11,15 +11,15 @@
 	],
 	"require": {
 		"php": "^7.1",
-		"nette/forms": "3.0.x@dev",
-		"nette/utils": "3.0.x@dev"
+		"nette/forms": "^3.0.0@dev",
+		"nette/utils": "^3.0.0@dev"
 	},
 	"require-dev": {
-		"nette/application": "3.0.x@dev",
-		"nette/robot-loader": "3.0.x@dev",
-		"nette/bootstrap": "3.0.x@dev",
-		"nette/http": "3.0.x@dev",
-		"latte/latte": "3.0.x@dev",
+		"nette/application": "^3.0.0@dev",
+		"nette/robot-loader": "^3.0.0@dev",
+		"nette/bootstrap": "^3.0.0@dev",
+		"nette/http": "^3.0.0@dev",
+		"latte/latte": "^3.0.0@dev",
 		"tracy/tracy": "^2.4.0",
 		"nette/tester": "^2.0.0"
 	},
