@@ -1,3 +1,10 @@
+includes:
+	- %rootDir%/../phpstan-deprecation-rules/rules.neon
+	- %rootDir%/../phpstan-nette/extension.neon
+	- %rootDir%/../phpstan-nette/rules.neon
+	- %rootDir%/../phpstan-strict-rules/rules.neon
+
 parameters:
-	autoload_directories:
-		- %rootDir%/../../../src
+	level: max
+	paths:
+		- src
