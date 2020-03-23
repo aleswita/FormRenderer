@@ -68,6 +68,9 @@ class BootstrapV4Renderer extends Nette\Forms\Rendering\DefaultFormRenderer
 		],
 	];
 
+	/**
+	 * @phpcsSuppress SlevomatCodingStandard.TypeHints.NullableTypeForNullDefaultValue.NullabilitySymbolRequired
+	 */
 	public function renderErrors(Nette\Forms\IControl $control = null, bool $own = true): string
 	{
 		if ($control instanceof Nette\Forms\Controls\Checkbox || $control instanceof Nette\Forms\Controls\RadioList || $control instanceof Nette\Forms\Controls\UploadControl) {
@@ -195,7 +198,6 @@ class BootstrapV4Renderer extends Nette\Forms\Rendering\DefaultFormRenderer
 
 					$container->insert(null, $div);
 				}
-
 
 				$parent->insert(null, $container);
 

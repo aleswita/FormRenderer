@@ -30,7 +30,7 @@ class Factory
 
 		$form->addProtection();
 		$form->setTranslator($this->translator);
-		$form->setRenderer(new $this->renderer);
+		$form->setRenderer(new $this->renderer());
 
 		return $form;
 	}

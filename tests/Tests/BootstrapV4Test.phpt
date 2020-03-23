@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace AlesWita\FormRenderer\Tests\Tests;
+namespace Tests\Tests;
 
 use AlesWita;
 use Nette;
@@ -18,7 +18,7 @@ final class BootstrapV4Test extends Tester\TestCase
 		$configurator->addConfig(__DIR__ . '/../app/config/config.neon');
 
 		$container = $configurator->createContainer();
-		$presenterFactory = $container->getByType('Nette\\Application\\IPresenterFactory');
+		$presenterFactory = $container->getByType(Nette\Application\IPresenterFactory::class);
 
 		$presenter = $presenterFactory->createPresenter('Base');
 		$presenter->autoCanonicalize = false;
@@ -31,7 +31,6 @@ final class BootstrapV4Test extends Tester\TestCase
 
 		$source = $response->getSource()->renderToString();
 		$dom = Tester\DomQuery::fromHtml($source);
-
 
 		/**
 		 * form test
@@ -47,7 +46,6 @@ final class BootstrapV4Test extends Tester\TestCase
 		Tester\Assert::same('multipart/form-data', $foo['@attributes']['enctype']);
 		Tester\Assert::same('frm-form1', $foo['@attributes']['id']);
 
-
 		/**
 		 * form error test
 		 */
@@ -60,7 +58,6 @@ final class BootstrapV4Test extends Tester\TestCase
 		Tester\Assert::count(1, $foo['@attributes']);
 		Tester\Assert::same('row mb-3', $foo['@attributes']['class']);
 		Tester\Assert::same('error1', $foo['div']);
-
 
 		/**
 		 * form group test
@@ -81,14 +78,12 @@ final class BootstrapV4Test extends Tester\TestCase
 		Tester\Assert::same('pl-3 lead', $foo['@attributes']['class']);
 		Tester\Assert::same('group1 description', $foo[0]);
 
-
 		/**
 		 * field's test
 		 */
 		$data = $dom->find('div[class="form-group row"]');
 
 		Tester\Assert::count(7, $data);
-
 
 		/**
 		 * text1 field test
@@ -133,7 +128,6 @@ final class BootstrapV4Test extends Tester\TestCase
 		Tester\Assert::same('frm-form1-text1', $foo2['@attributes']['id']);
 		Tester\Assert::same('form-control', $foo2['@attributes']['class']);
 
-
 		/**
 		 * text2 field test
 		 */
@@ -177,7 +171,6 @@ final class BootstrapV4Test extends Tester\TestCase
 		Tester\Assert::same('form-control', $foo2['@attributes']['class']);
 		Tester\Assert::same('disabled', $foo2['@attributes']['disabled']);
 
-
 		/**
 		 * select1 field test
 		 */
@@ -211,7 +204,6 @@ final class BootstrapV4Test extends Tester\TestCase
 		Tester\Assert::count(2, $foo['option']);
 		Tester\Assert::same('0', $foo['option'][0]);
 		Tester\Assert::same('1', $foo['option'][1]);
-
 
 		/**
 		 * radio1 field test
@@ -269,7 +261,6 @@ final class BootstrapV4Test extends Tester\TestCase
 		Tester\Assert::same('form-check-input', $foo['@attributes']['class']);
 		Tester\Assert::same('1', $foo['@attributes']['value']);
 
-
 		/**
 		 * checkbox1 field test
 		 */
@@ -306,7 +297,6 @@ final class BootstrapV4Test extends Tester\TestCase
 		Tester\Assert::same('form-check-input', $foo['@attributes']['class']);
 		Tester\Assert::same('frm-form1-checkbox1', $foo['@attributes']['id']);
 
-
 		/**
 		 * upload1 field test
 		 */
@@ -330,14 +320,6 @@ final class BootstrapV4Test extends Tester\TestCase
 		Tester\Assert::count(2, $upload1InputContainer);
 		Tester\Assert::count(1, $upload1InputContainer['@attributes']);
 		Tester\Assert::same('col-lg-6 col-md-9 col-sm-12', $upload1InputContainer['@attributes']['class']);
-
-		$foo = (array) $upload1InputContainer['input'];
-		//Tester\Assert::count(4, $foo['@attributes']);
-		Tester\Assert::same('file', $foo['@attributes']['type']);
-		Tester\Assert::same('upload1', $foo['@attributes']['name']);
-		Tester\Assert::same('frm-form1-upload1', $foo['@attributes']['id']);
-		Tester\Assert::same('form-control-file', $foo['@attributes']['class']);
-
 
 		/**
 		 * submit1 & submit2 buttons test
@@ -394,7 +376,6 @@ final class BootstrapV4Test extends Tester\TestCase
 		$source = $response->getSource()->renderToString();
 		$dom = Tester\DomQuery::fromHtml($source);
 
-
 		/**
 		 * form test
 		 */
@@ -409,14 +390,12 @@ final class BootstrapV4Test extends Tester\TestCase
 		Tester\Assert::same('multipart/form-data', $foo['@attributes']['enctype']);
 		Tester\Assert::same('frm-form2', $foo['@attributes']['id']);
 
-
 		/**
 		 * field's test
 		 */
 		$data = $dom->find('div[class="form-group row"]');
 
 		Tester\Assert::count(3, $data);
-
 
 		/**
 		 * text1 field test
@@ -463,7 +442,6 @@ final class BootstrapV4Test extends Tester\TestCase
 		Tester\Assert::same('frm-form2-text1', $foo2['@attributes']['id']);
 		Tester\Assert::same('is-invalid form-control', $foo2['@attributes']['class']);
 
-
 		/**
 		 * text2 field test
 		 */
@@ -509,7 +487,6 @@ final class BootstrapV4Test extends Tester\TestCase
 		Tester\Assert::same('frm-form2-text2', $foo2['@attributes']['id']);
 		Tester\Assert::same('is-invalid form-control', $foo2['@attributes']['class']);
 
-
 		/**
 		 * upload1 field test
 		 */
@@ -534,13 +511,6 @@ final class BootstrapV4Test extends Tester\TestCase
 		Tester\Assert::count(1, $upload1InputContainer['@attributes']);
 		Tester\Assert::same('col-lg-6 col-md-9 col-sm-12', $upload1InputContainer['@attributes']['class']);
 		Tester\Assert::contains('upload1 error', (string) $upload1InputContainer['div']);
-
-		$foo = (array) $upload1InputContainer['input'];
-		//Tester\Assert::count(4, $foo['@attributes']);
-		Tester\Assert::same('file', $foo['@attributes']['type']);
-		Tester\Assert::same('upload1', $foo['@attributes']['name']);
-		Tester\Assert::same('frm-form2-upload1', $foo['@attributes']['id']);
-		Tester\Assert::same('form-control-file', $foo['@attributes']['class']);
 	}
 
 
