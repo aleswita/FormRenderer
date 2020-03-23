@@ -1,31 +1,16 @@
-<?php
-
-/**
- * This file is part of the AlesWita\FormRenderer
- * Copyright (c) 2017 Ales Wita (aleswita+github@gmail.com)
- */
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace AlesWita\FormRenderer\Tests\App\Presenters;
 
 use AlesWita;
 use Nette;
 
-
-/**
- * @author Ales Wita
- * @license MIT
- */
 final class BasePresenter extends Nette\Application\UI\Presenter
 {
+
 	/** @var AlesWita\FormRenderer\Factory @inject */
 	public $factory;
 
-
-	/**
-	 * @return Nette\Application\UI\Form
-	 */
 	protected function createComponentForm1(): Nette\Application\UI\Form
 	{
 		$form = $this->factory->create();
@@ -65,10 +50,6 @@ final class BasePresenter extends Nette\Application\UI\Presenter
 		return $form;
 	}
 
-
-	/**
-	 * @return Nette\Application\UI\Form
-	 */
 	protected function createComponentForm2(): Nette\Application\UI\Form
 	{
 		$form = $this->factory->create();
@@ -87,4 +68,5 @@ final class BasePresenter extends Nette\Application\UI\Presenter
 
 		return $form;
 	}
+
 }

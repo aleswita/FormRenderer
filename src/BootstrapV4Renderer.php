@@ -1,23 +1,12 @@
-<?php
-
-/**
- * This file is part of the AlesWita\FormRenderer
- * Copyright (c) 2017 Ales Wita (aleswita+github@gmail.com)
- */
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace AlesWita\FormRenderer;
 
 use Nette;
 
-
-/**
- * @author Ales Wita
- * @license MIT
- */
 class BootstrapV4Renderer extends Nette\Forms\Rendering\DefaultFormRenderer
 {
+
 	/** @var array */
 	public $wrappers = [
 		'form' => [
@@ -57,6 +46,7 @@ class BootstrapV4Renderer extends Nette\Forms\Rendering\DefaultFormRenderer
 			'erroritem' => null,
 
 			'.required' => null,
+			'.error' => null,
 			'.text' => null,
 			'.password' => null,
 			'.file' => null,
@@ -78,12 +68,6 @@ class BootstrapV4Renderer extends Nette\Forms\Rendering\DefaultFormRenderer
 		],
 	];
 
-
-	/**
-	 * @param Nette\Forms\IControl $control
-	 * @param bool $own
-	 * @return string
-	 */
 	public function renderErrors(Nette\Forms\IControl $control = null, bool $own = true): string
 	{
 		if ($control instanceof Nette\Forms\Controls\Checkbox || $control instanceof Nette\Forms\Controls\RadioList || $control instanceof Nette\Forms\Controls\UploadControl) {
@@ -100,11 +84,6 @@ class BootstrapV4Renderer extends Nette\Forms\Rendering\DefaultFormRenderer
 		return $parent;
 	}
 
-
-	/**
-	 * @param array $controls
-	 * @return string
-	 */
 	public function renderPairMulti(array $controls): string
 	{
 		foreach ($controls as $control) {
@@ -120,11 +99,6 @@ class BootstrapV4Renderer extends Nette\Forms\Rendering\DefaultFormRenderer
 		return parent::renderPairMulti($controls);
 	}
 
-
-	/**
-	 * @param Nette\Forms\IControl $control
-	 * @return Nette\Utils\Html
-	 */
 	public function renderLabel(Nette\Forms\IControl $control): Nette\Utils\Html
 	{
 		if ($control instanceof Nette\Forms\Controls\Checkbox || $control instanceof Nette\Forms\Controls\CheckboxList) {
@@ -141,11 +115,6 @@ class BootstrapV4Renderer extends Nette\Forms\Rendering\DefaultFormRenderer
 		return $parent;
 	}
 
-
-	/**
-	 * @param Nette\Forms\IControl $control
-	 * @return Nette\Utils\Html
-	 */
 	public function renderControl(Nette\Forms\IControl $control): Nette\Utils\Html
 	{
 		if ($control instanceof Nette\Forms\Controls\Checkbox || $control instanceof Nette\Forms\Controls\CheckboxList) {
@@ -235,4 +204,5 @@ class BootstrapV4Renderer extends Nette\Forms\Rendering\DefaultFormRenderer
 
 		return $parent;
 	}
+
 }

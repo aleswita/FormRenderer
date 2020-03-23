@@ -1,11 +1,4 @@
-<?php
-
-/**
- * This file is part of the AlesWita\Components\WebLoader
- * Copyright (c) 2017 Ales Wita (aleswita+github@gmail.com)
- */
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 if (@!include __DIR__ . '/../vendor/autoload.php') {
 	echo 'Install Nette Tester using `composer install`';
