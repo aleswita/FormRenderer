@@ -15,12 +15,12 @@
 		"nette/utils": "^3.0"
 	},
 	"require-dev": {
-		"latte/latte": "^2.5",
+		"latte/latte": "^2.6",
 		"nette/application": "^3.0",
 		"nette/bootstrap": "^3.0",
 		"nette/http": "^3.0",
 		"nette/robot-loader": "^3.0",
-		"nette/tester": "^2.0",
+		"nette/tester": "^2.3",
 		"ninjify/qa": "^0.8.0",
 		"ninjify/nunjuck": "^0.3.0",
 		"tracy/tracy": "^2.4"
