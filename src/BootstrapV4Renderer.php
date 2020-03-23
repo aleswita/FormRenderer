@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace AlesWita\FormRenderer;
 
@@ -7,7 +7,7 @@ use Nette;
 class BootstrapV4Renderer extends Nette\Forms\Rendering\DefaultFormRenderer
 {
 
-	/** @var array */
+	/** @var mixed[] */
 	public $wrappers = [
 		'form' => [
 			'container' => null,
@@ -84,6 +84,9 @@ class BootstrapV4Renderer extends Nette\Forms\Rendering\DefaultFormRenderer
 		return $parent;
 	}
 
+	/**
+	 * @param Nette\Forms\IControl[] $controls
+	 */
 	public function renderPairMulti(array $controls): string
 	{
 		foreach ($controls as $control) {

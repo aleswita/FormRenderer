@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace AlesWita\FormRenderer;
 
@@ -26,7 +26,7 @@ class Factory
 
 	public function create(): Nette\Application\UI\Form
 	{
-		$form = new Nette\Application\UI\Form;
+		$form = new Nette\Application\UI\Form();
 
 		$form->addProtection();
 		$form->setTranslator($this->translator);
