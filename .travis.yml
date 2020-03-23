@@ -1,3 +1,5 @@
+os: linux
+
 language: php
 
 php:
@@ -50,8 +52,6 @@ jobs:
         - stage: PHPStan
         - stage: Code Standard Checker
         - stage: Code Coverage
-
-sudo: false
 
 cache:
     directories:
