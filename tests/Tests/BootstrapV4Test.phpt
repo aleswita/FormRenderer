@@ -15,7 +15,7 @@ final class BootstrapV4Test extends Tester\TestCase
 	{
 		$configurator = new Nette\Configurator();
 		$configurator->setTempDirectory(TEMP_DIR);
-		$configurator->addConfig(__DIR__ . '/../app/config/config.neon');
+		$configurator->addConfig(__DIR__ . '/../App/config/config.neon');
 
 		$container = $configurator->createContainer();
 		$presenterFactory = $container->getByType(Nette\Application\IPresenterFactory::class);
@@ -360,7 +360,7 @@ final class BootstrapV4Test extends Tester\TestCase
 	{
 		$configurator = new Nette\Configurator();
 		$configurator->setTempDirectory(TEMP_DIR);
-		$configurator->addConfig(__DIR__ . '/../app/config/config.neon');
+		$configurator->addConfig(__DIR__ . '/../App/config/config.neon');
 
 		$container = $configurator->createContainer();
 		$presenterFactory = $container->getByType('Nette\\Application\\IPresenterFactory');
