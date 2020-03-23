@@ -5,9 +5,9 @@ if (@!include __DIR__ . '/../vendor/autoload.php') {
 	exit(1);
 }
 
-require_once __DIR__ . '/App/presenters/BasePresenter.php';
-require_once __DIR__ . '/App/router/Router.php';
-require_once __DIR__ . '/App/service/FakeTranslator.php';
+require_once __DIR__ . '/App/Presenters/BasePresenter.php';
+require_once __DIR__ . '/App/Router/Router.php';
+require_once __DIR__ . '/App/Service/FakeTranslator.php';
 
 Tester\Environment::setup();
 
