@@ -7,7 +7,7 @@
             <property name="extensions" type="array" value="php, phpt" />
             <property name="rootNamespaces" type="array">
                 <element key="src" value="AlesWita\FormRenderer" />
-                <element key="tests/Tests" value="Tests" />
+                <element key="tests" value="" />
             </property>
         </properties>
     </rule>
