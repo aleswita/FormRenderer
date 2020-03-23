@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Tests\Tests;
+namespace Tests;
 
 use AlesWita;
 use Nette;
@@ -352,10 +352,6 @@ final class BootstrapV4Test extends Tester\TestCase
 		Tester\Assert::same('submit1', $foo['@attributes']['value']);
 	}
 
-
-	/**
-	 * @return void
-	 */
 	public function test02(): void
 	{
 		$configurator = new Nette\Configurator();
@@ -513,10 +509,6 @@ final class BootstrapV4Test extends Tester\TestCase
 		Tester\Assert::contains('upload1 error', (string) $upload1InputContainer['div']);
 	}
 
-
-	/**
-	 * @return void
-	 */
 	public function test03(): void
 	{
 		$originalRenderer = new Nette\Forms\Rendering\DefaultFormRenderer();
@@ -525,6 +517,10 @@ final class BootstrapV4Test extends Tester\TestCase
 		Tester\Assert::true($this->arrayIntegrityCheck($originalRenderer->wrappers, $bootstrapRenderer->wrappers));
 	}
 
+	/**
+	 * @param mixed[] $arr1
+	 * @param mixed[] $arr2
+	 */
 	private function arrayIntegrityCheck(array $arr1, array $arr2): bool
 	{
 		foreach ($arr1 as $key => $value) {
@@ -544,4 +540,4 @@ final class BootstrapV4Test extends Tester\TestCase
 
 }
 
-(new BootstrapV4Test)->run();
+(new BootstrapV4Test())->run();

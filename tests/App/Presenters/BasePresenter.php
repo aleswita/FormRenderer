@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Tests\App\Presenters;
+namespace App\Presenters;
 
 use AlesWita;
 use Nette;

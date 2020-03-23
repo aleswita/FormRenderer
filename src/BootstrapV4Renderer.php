@@ -69,7 +69,7 @@ class BootstrapV4Renderer extends Nette\Forms\Rendering\DefaultFormRenderer
 	];
 
 	/**
-	 * @phpcsSuppress SlevomatCodingStandard.TypeHints.NullableTypeForNullDefaultValue.NullabilitySymbolRequired
+	 * @phpcsSuppress SlevomatCodingStandard.TypeHints.NullableTypeForNullDefaultValue
 	 */
 	public function renderErrors(Nette\Forms\IControl $control = null, bool $own = true): string
 	{
