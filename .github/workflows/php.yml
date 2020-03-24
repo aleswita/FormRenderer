@@ -9,19 +9,20 @@ on:
 jobs:
     split_tests:
         runs-on: ubuntu-latest
-        name: Split tests
+        name: 'Split tests'
         steps:
             - uses: actions/checkout@v2
 
             - shell: bash
               run: |
-                  find tests/Tests -name '*.phpt' > test_files.txt
-                  split -n 2 test_files.txt
+                  mkdr temp
+                  find tests/Tests -name '*.phpt' > temp/test_files.txt
+                  split -n 2 temp/test_files.txt
 
             - uses: actions/upload-artifact@v1
               with:
                   name: 'Upload artifacts'
-                  path: ./
+                  path: temp/
 
     tests:
         runs-on: ubuntu-latest
