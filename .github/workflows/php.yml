@@ -25,7 +25,7 @@ jobs:
                 run: cat temp/testFiles.txt
 
             -   shell: bash
-                run: wc -l temp/testFiles.txt
+                run: div=$((wc -l temp/testFiles.txt / 2)) && echo div
 
             -   uses: shivammathur/setup-php@v1
                 with:
