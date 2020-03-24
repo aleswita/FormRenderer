@@ -12,7 +12,7 @@ jobs:
         name: 'Collect tests'
         steps:
             - shell: bash
-              run: find tests/Tests -name '*.phpt' > temp/testFiles.txt
+              run: mkdir -p temp && find tests/Tests -name '*.phpt' > temp/testFiles.txt
     tests:
         runs-on: ubuntu-latest
         strategy:
