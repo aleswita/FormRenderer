@@ -1,4 +1,3 @@
-  
 name: PHPStan
 
 on:
@@ -16,6 +15,5 @@ jobs:
                 with:
                     php-version: 7.3
                     coverage: none
-                    tools: cs2pr
             -   run: composer run-script phpstan-install
             -   run: composer run-script phpstan
