@@ -6,5 +6,5 @@ includes:
 
 parameters:
 	level: max
-	paths:
+	autoload_directories:
 		- src
