@@ -116,6 +116,7 @@ class BootstrapV4Renderer extends Nette\Forms\Rendering\DefaultFormRenderer
 			$control->labelPrototype->addClass('form-check-label');
 
 		} else {
+			assert($control instanceof Nette\Forms\Controls\BaseControl);
 			$control->labelPrototype->addClass('col-form-label');
 		}
 
@@ -140,6 +141,8 @@ class BootstrapV4Renderer extends Nette\Forms\Rendering\DefaultFormRenderer
 			$control->controlPrototype->addClass('form-control-file');
 
 		} else {
+			assert($control instanceof Nette\Forms\Controls\BaseControl);
+
 			if ($control->hasErrors()) {
 				$control->controlPrototype->addClass('is-invalid');
 			}
