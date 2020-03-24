@@ -37,7 +37,7 @@ jobs:
         steps:
             - shell: bash
               run: |
-                  temp -name '*.txt' > temp/test.txt
+                  find temp -name '*.txt' > temp/test.txt
 
             -   shell: bash
                 run: cat temp/test.txt
