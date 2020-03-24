@@ -16,29 +16,31 @@ jobs:
             - shell: bash
               run: |
                   mkdir temp
-                  find tests/Tests -name '*.phpt' > temp/test_files.txt
-                  split -n l/2 temp/test_files.txt temp/test_files_
+                  find tests/Tests -name '*.phpt' > temp/test_files
+                  split -n l/2 -x temp/test_files temp/test_files_
 
             - uses: actions/upload-artifact@v1
               with:
-                  name: 'Upload artifacts'
-                  path: temp/
+                  name: 'tests_batch_0'
+                  path: temp/test_files_0
+
+            - uses: actions/upload-artifact@v1
+              with:
+                  name: 'tests_batch_1'
+                  path: temp/test_files_1
 
     tests:
         runs-on: ubuntu-latest
         needs: split_tests
         strategy:
             matrix:
-                node: ['1', '2']
+                batch: ['0', '1']
 
-        name: PHP tests ${{ matrix.node }}
+        name: PHP tests ${{ matrix.batch }}
         steps:
             - shell: bash
               run: |
-                  find temp -name '*.txt' > temp/test.txt
-
-            -   shell: bash
-                run: cat temp/test.txt
+                run: cat temp/test_files_${{ matrix.batch }}
 
     lowest_dependencies:
         runs-on: ubuntu-latest
