@@ -47,11 +47,10 @@ jobs:
             - uses: actions/download-artifact@v1
               with:
                   name: tests_batch_${{ matrix.batch }}
-                  path: temp
+                  path: temp/tests_batch_${{ matrix.batch }}
 
             - shell: bash
               run: |
-                  cat temp
                   cat temp/tests_files_${{ matrix.batch }}
 
     lowest_dependencies:
