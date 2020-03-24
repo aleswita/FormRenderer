@@ -69,6 +69,7 @@ class BootstrapV4Renderer extends Nette\Forms\Rendering\DefaultFormRenderer
 	];
 
 	/**
+	 * @param Nette\Forms\IControl|null $control
 	 * @phpcsSuppress SlevomatCodingStandard.TypeHints.NullableTypeForNullDefaultValue.NullabilitySymbolRequired
 	 */
 	public function renderErrors(Nette\Forms\IControl $control = null, bool $own = true): string
@@ -80,7 +81,7 @@ class BootstrapV4Renderer extends Nette\Forms\Rendering\DefaultFormRenderer
 
 		$parent = parent::renderErrors($control, $own);
 
-		if ($control instanceof Nette\Forms\Controls\Checkbox || $control instanceof Nette\Forms\Controls\RadioList || $control instanceof Nette\Forms\Controls\UploadControl) {
+		if (isset($temp)) {
 			$this->wrappers['control']['errorcontainer'] = $temp;
 		}
 
@@ -92,10 +93,12 @@ class BootstrapV4Renderer extends Nette\Forms\Rendering\DefaultFormRenderer
 	 */
 	public function renderPairMulti(array $controls): string
 	{
+		$primary = false;
+
 		foreach ($controls as $control) {
 			if ($control instanceof Nette\Forms\Controls\Button) {
 				if ($control->controlPrototype->class === null || (is_array($control->controlPrototype->class) && !Nette\Utils\Strings::contains(implode(' ', array_keys($control->controlPrototype->class)), 'btn btn-'))) {
-					$control->controlPrototype->addClass((empty($primary) ? 'btn btn-outline-primary' : 'btn btn-outline-secondary'));
+					$control->controlPrototype->addClass(!$primary ? 'btn btn-outline-primary' : 'btn btn-outline-secondary');
 				}
 
 				$primary = true;
@@ -117,8 +120,7 @@ class BootstrapV4Renderer extends Nette\Forms\Rendering\DefaultFormRenderer
 			$control->labelPrototype->addClass('col-form-label');
 		}
 
-		$parent = parent::renderLabel($control);
-		return $parent;
+		return parent::renderLabel($control);
 	}
 
 	public function renderControl(Nette\Forms\IControl $control): Nette\Utils\Html
