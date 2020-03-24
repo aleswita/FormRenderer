@@ -11,7 +11,6 @@ jobs:
         runs-on: ubuntu-latest
         strategy:
             matrix:
-                php: ['7.3', '7.3']
                 node: ['0', '1']
 
         name: PHP ${{ matrix.php }} tests ${{ matrix.node }}
@@ -19,23 +18,26 @@ jobs:
             -   uses: actions/checkout@v2
 
             -   shell: bash
-                run: mkdir -p temp && find tests/Tests -name '*.phpt' > temp/testFiles.txt
+                run: mkdir -p temp && find tests/Tests -name '*.phpt' > temp/test_files.txt
 
             -   shell: bash
-                run: cat temp/testFiles.txt
+                run: cat temp/test_files.txt
 
             -   shell: bash
-                run: rows=($(wc -l < temp/testFiles.txt)) && expr $rows / 2 > temp/divider.txt
+                run: rows=($(wc -l < temp/test_files.txt)) && expr $rows / 2 > temp/test_divider.txt
 
             -   shell: bash
                 run: cat temp/divider.txt
 
             -   shell: bash
-                run: echo $a
+                run: |
+                    divider="cat temp/test_divider.txt"
+                    split -l $divider > temp/test_divider_${{ matrix.node }}.txt
+                    cat temp/test_divider_${{ matrix.node }}.txt
 
             -   uses: shivammathur/setup-php@v1
                 with:
-                    php-version: ${{ matrix.php }}
+                    php-version: 7.3
                     coverage: none
             -   run: composer install --no-progress --prefer-dist
             -   run: composer run-script tests
