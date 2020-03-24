@@ -17,7 +17,7 @@ jobs:
               run: |
                   mkdir temp
                   find tests/Tests -name '*.phpt' > temp/test_files.txt
-                  split -n 2 temp/test_files.txt
+                  split -n l/2 temp/test_files.txt
 
             - uses: actions/upload-artifact@v1
               with:
