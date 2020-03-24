@@ -11,6 +11,8 @@ jobs:
         runs-on: ubuntu-latest
         name: Split tests
         steps:
+            - uses: actions/checkout@v2
+
             - shell: bash
               run: |
                   mkdir -p temp
