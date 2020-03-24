@@ -11,7 +11,7 @@ jobs:
         runs-on: ubuntu-latest
         strategy:
             matrix:
-                node: ['0', '1']
+                node: ['1', '2']
 
         name: PHP ${{ matrix.php }} tests ${{ matrix.node }}
         steps:
