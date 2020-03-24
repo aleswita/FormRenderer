@@ -44,7 +44,7 @@
 			"composer require -d temp/phpstan phpstan/phpstan-strict-rules:^0.12"
 		],
 		"phpstan": [
-			"temp/phpstan/vendor/bin/phpstan analyse -c ./phpstan.neon"
+			"temp/phpstan/vendor/bin/phpstan analyse -c phpstan.neon"
 		],
 		"coverage": [
 			"tester tests/Tests -s -p phpdbg --coverage ./coverage.xml --coverage-src ./src"
