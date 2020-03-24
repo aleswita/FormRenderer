@@ -33,7 +33,7 @@ jobs:
                 run: |
                     rows=($(wc -l < temp/test_files.txt))
                     divider=($(expr $rows / 2))
-                    split -l $divider --numeric-suffixes temp/test_files.txt _
+                    split -l $divider --numeric-suffixes temp/test_files.txt test_files_
                     cat temp/test_files_0${{ matrix.node }}.txt
 
             -   uses: shivammathur/setup-php@v1
