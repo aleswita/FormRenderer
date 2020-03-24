@@ -30,7 +30,7 @@
 	},
 	"scripts": {
 		"tests": [
-			"tester tests/Tests -s -j 1"
+			"tester tests/Tests -s -j 1 -c tests/php.ini"
 		],
 		"qa": [
 			"linter src tests",
