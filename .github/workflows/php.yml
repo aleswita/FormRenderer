@@ -40,7 +40,7 @@ jobs:
         steps:
             - uses: actions/download-artifact@v1
               with:
-              name: tests_batch_${{ matrix.batch }}
+                  name: tests_batch_${{ matrix.batch }}
 
             - shell: bash
               run: |
