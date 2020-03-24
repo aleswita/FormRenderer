@@ -30,26 +30,12 @@ jobs:
 
         name: PHP tests ${{ matrix.node }}
         steps:
-            -   uses: actions/checkout@v2
+            - shell: bash
+              run: |
+                  temp -name '*.txt' > temp/test.txt
 
             -   shell: bash
-                run: mkdir -p temp && find tests/Tests -name '*.phpt' > temp/test_files.txt
-
-            -   shell: bash
-                run: cat temp/test_files.txt
-
-            -   shell: bash
-                run: rows=($(wc -l < temp/test_files.txt)) && expr $rows / 2 > temp/test_divider.txt
-
-            -   shell: bash
-                run: cat temp/test_divider.txt
-
-            -   uses: shivammathur/setup-php@v1
-                with:
-                    php-version: 7.3
-                    coverage: none
-            -   run: composer install --no-progress --prefer-dist
-            -   run: composer run-script tests
+                run: cat temp/test.txt
 
     lowest_dependencies:
         runs-on: ubuntu-latest
