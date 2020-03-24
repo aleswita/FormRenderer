@@ -1,0 +1,25 @@
+name: Tests
+
+on:
+    pull_request: null
+    push:
+        branches:
+            - master
+
+jobs:
+    tests:
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                php: ['7.1', '7.2', 7.3', '7.4']
+
+        name: PHP ${{ matrix.php }} tests
+        steps:
+            -   run: composer install --no-progress --prefer-dist
+            -   run: composer run-script tests
+
+    lowest_dependencies:
+        runs-on: ubuntu-latest
+        steps:
+            -   run: composer update --no-progress --prefer-dist --prefer-lowest --prefer-stable
+            -   run: composer run-script tests
