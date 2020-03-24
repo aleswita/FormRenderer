@@ -16,7 +16,7 @@ jobs:
             - shell: bash
               run: |
                   find tests/Tests -name '*.phpt' > test_files.txt
-                  split -n 2 -l test_files.txt
+                  split -n 2 test_files.txt
 
             - uses: actions/upload-artifact@v1
               with:
