@@ -25,7 +25,7 @@ jobs:
                 run: cat temp/testFiles.txt
 
             -   shell: bash
-                run: div=$((wc -l temp/testFiles.txt / 2)) && echo div
+                run: countFiles=$((wc -l temp/testFiles.txt)) && echo countFiles
 
             -   uses: shivammathur/setup-php@v1
                 with:
