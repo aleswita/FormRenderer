@@ -16,18 +16,18 @@ jobs:
             - shell: bash
               run: |
                   mkdir temp
-                  find tests/Tests -name '*.phpt' > temp/test_files
-                  split -n l/2 -x temp/test_files temp/test_batch_
+                  find tests/Tests -name '*.phpt' > temp/tests_files
+                  split -n l/2 -x temp/tests_files temp/tests_batch_
 
             - uses: actions/upload-artifact@v1
               with:
                   name: 'tests_batch_00'
-                  path: temp/test_batch_00
+                  path: temp/tests_batch_00
 
             - uses: actions/upload-artifact@v1
               with:
                   name: 'tests_batch_01'
-                  path: temp/test_batch_01
+                  path: temp/tests_batch_01
 
     tests:
         runs-on: ubuntu-latest
@@ -44,7 +44,7 @@ jobs:
 
             - shell: bash
               run: |
-                  cat temp/test_files_${{ matrix.batch }}
+                  cat temp/tests_files_${{ matrix.batch }}
 
     lowest_dependencies:
         runs-on: ubuntu-latest
