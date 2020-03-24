@@ -177,14 +177,16 @@ class BootstrapV4Renderer extends Nette\Forms\Rendering\DefaultFormRenderer
 					$container->insert(null, $div);
 				}
 
+				$description = null;
+
 				foreach ($children as $child) {
 					$controlPart = $control->getControlPart();
-					
+
 					if ($controlPart !== null) {
 						$foo = Nette\Utils\Strings::after($child, $controlPart->render());
 
 						if ($foo !== null) {
-							$container->insert(null, $control->getControlPart()->render());
+							$container->insert(null, $controlPart->render());
 							$description = $foo;
 							continue;
 						}
@@ -209,7 +211,7 @@ class BootstrapV4Renderer extends Nette\Forms\Rendering\DefaultFormRenderer
 
 				$parent->insert(null, $container);
 
-				if (!empty($description)) {
+				if ($description !== null) {
 					$parent->insert(null, $description);
 				}
 			}
