@@ -15,5 +15,6 @@ jobs:
                 with:
                     php-version: 7.3
                     coverage: none
+            -   run: composer update --no-progress --prefer-dist --prefer-lowest --prefer-stable
             -   run: composer run-script phpstan-install
             -   run: composer run-script phpstan
