@@ -21,12 +21,12 @@ jobs:
 
             - uses: actions/upload-artifact@v1
               with:
-                  name: 'tests_batch_0'
+                  name: 'tests_batch_00'
                   path: temp/test_batch_00
 
             - uses: actions/upload-artifact@v1
               with:
-                  name: 'tests_batch_1'
+                  name: 'tests_batch_01'
                   path: temp/test_batch_01
 
     tests:
@@ -34,17 +34,17 @@ jobs:
         needs: split_tests
         strategy:
             matrix:
-                batch: ['0', '1']
+                batch: ['00', '01']
 
         name: PHP tests ${{ matrix.batch }}
         steps:
             - uses: actions/download-artifact@v1
               with:
-                  name: tests_batch_0${{ matrix.batch }}
+                  name: tests_batch_${{ matrix.batch }}
 
             - shell: bash
               run: |
-                  cat temp/test_files_0${{ matrix.batch }}
+                  cat temp/test_files_${{ matrix.batch }}
 
     lowest_dependencies:
         runs-on: ubuntu-latest
