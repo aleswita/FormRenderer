@@ -51,7 +51,7 @@ jobs:
 
             - shell: bash
               run: |
-                  cat temp/tests_files_${{ matrix.batch }}
+                  cat temp/tests_batch_${{ matrix.batch }}
 
     lowest_dependencies:
         runs-on: ubuntu-latest
