@@ -7,9 +7,12 @@ on:
             - master
 
 jobs:
-    collectTestFiles:
-        - shell: bash
-          run: find /data/tests -name '*.phpt' > temp/testfiles.txt
+    findTests:
+        runs-on: ubuntu-latest
+        name: 'Collect tests'
+        steps:
+            - shell: bash
+              run: find tests/Tests -name '*.phpt' > temp/testFiles.txt
     tests:
         runs-on: ubuntu-latest
         strategy:
