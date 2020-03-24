@@ -51,12 +51,7 @@ jobs:
 
             - run: composer install --no-progress --prefer-dist
 
-            - shell: bash
-              run: |
-                  cat temp/tests_batch_${{ matrix.batch }}
-
-            - run: vendor/nette/tester/src/tester -s -c tests/php.ini | cat temp/tests_batch_${{ matrix.batch }}
-
+            - run: cat temp/tests_batch_${{ matrix.batch }} | vendor/nette/tester/src/tester -s -c tests/php.ini
 
     lowest_dependencies:
         runs-on: ubuntu-latest
