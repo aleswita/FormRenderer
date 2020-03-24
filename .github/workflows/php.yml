@@ -25,7 +25,10 @@ jobs:
                 run: cat temp/testFiles.txt
 
             -   shell: bash
-                run: echo "$countFiles" | wc temp/testFiles.txt -l
+                run: countFiles=$(wc temp/testFiles.txt -l)
+
+            -   shell: bash
+                run: echo "$countFiles"
 
             -   uses: shivammathur/setup-php@v1
                 with:
