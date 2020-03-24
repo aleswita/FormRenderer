@@ -40,7 +40,7 @@ jobs:
         steps:
             - shell: bash
               run: |
-                run: cat temp/test_files_${{ matrix.batch }}
+                  cat temp/test_files_${{ matrix.batch }}
 
     lowest_dependencies:
         runs-on: ubuntu-latest
