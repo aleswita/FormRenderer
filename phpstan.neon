@@ -8,3 +8,5 @@ parameters:
 	level: max
 	autoload_directories:
 		- src
+	paths:
+		- src
