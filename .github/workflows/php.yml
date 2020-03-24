@@ -23,8 +23,8 @@ jobs:
 
             - uses: actions/upload-artifact@v1
               with:
-                  name: "Upload"
-                  path: temp
+                  name: 'Upload'
+                  path: temp/*
 
     tests:
         runs-on: ubuntu-latest
