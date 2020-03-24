@@ -24,6 +24,9 @@ jobs:
             -   shell: bash
                 run: cat temp/testFiles.txt
 
+            -   shell: bash
+                run: wc -l temp/testFiles.txt
+
             -   uses: shivammathur/setup-php@v1
                 with:
                     php-version: ${{ matrix.php }}
