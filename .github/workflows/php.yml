@@ -38,6 +38,12 @@ jobs:
 
         name: PHP tests ${{ matrix.batch }}
         steps:
+            - uses: actions/checkout@v2
+
+            - shell: bash
+              run: |
+                  mkdir temp
+
             - uses: actions/download-artifact@v1
               with:
                   name: tests_batch_${{ matrix.batch }}
@@ -45,6 +51,7 @@ jobs:
 
             - shell: bash
               run: |
+                  cat temp
                   cat temp/tests_files_${{ matrix.batch }}
 
     lowest_dependencies:
