@@ -25,7 +25,7 @@ jobs:
                 run: cat temp/testFiles.txt
 
             -   shell: bash
-                run: countFiles=$(wc temp/testFiles.txt -l)
+                run: countFiles="$(wc temp/testFiles.txt -l)"
 
             -   shell: bash
                 run: echo "$countFiles"
