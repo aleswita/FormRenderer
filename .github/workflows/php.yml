@@ -25,7 +25,7 @@ jobs:
                 run: cat temp/testFiles.txt
 
             -   shell: bash
-                run: a=($(wc -l < temp/testFiles.txt)) && echo ($a / 2)
+                run: a=($((wc -l < temp/testFiles.txt) / 2)) && echo $a
 
             -   shell: bash
                 run: echo $a
