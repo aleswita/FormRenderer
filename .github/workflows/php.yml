@@ -25,7 +25,10 @@ jobs:
                 run: cat temp/testFiles.txt
 
             -   shell: bash
-                run: wc -l <  temp/testFiles.txt
+                run: a($(wc -l <  temp/testFiles.txt))
+
+            -   shell: bash
+                run: echo $a
 
             -   uses: shivammathur/setup-php@v1
                 with:
