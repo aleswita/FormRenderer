@@ -31,7 +31,8 @@ jobs:
 
             -   shell: bash
                 run: |
-                    divider="cat temp/test_divider.txt"
+                    rows=($(wc -l < temp/test_files.txt))
+                    divider=expr $rows / 2
                     split -l $divider > temp/test_divider_${{ matrix.node }}.txt
                     cat temp/test_divider_${{ matrix.node }}.txt
 
