@@ -27,7 +27,7 @@ jobs:
                 run: rows=($(wc -l < temp/test_files.txt)) && expr $rows / 2 > temp/test_divider.txt
 
             -   shell: bash
-                run: cat temp/divider.txt
+                run: cat temp/test_divider.txt
 
             -   shell: bash
                 run: |
