@@ -21,6 +21,10 @@ jobs:
                   divider=($(expr $rows / 2))
                   split -l $divider temp/test_files.txt
 
+            - uses: actions/upload-artifact@v1
+              with:
+                path: temp
+
     tests:
         runs-on: ubuntu-latest
         needs: split_tests
