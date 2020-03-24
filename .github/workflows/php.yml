@@ -25,7 +25,10 @@ jobs:
                 run: cat temp/testFiles.txt
 
             -   shell: bash
-                run: a=($(wc -l < temp/testFiles.txt)) && a=$a/2 && echo $a
+                run: rows=($(wc -l < temp/testFiles.txt)) && expr $rows / 2 > temp/divider.txt
+
+            -   shell: bash
+                run: cat temp/divider.txt
 
             -   shell: bash
                 run: echo $a
